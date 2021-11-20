@@ -5,6 +5,7 @@ const Welcome = () => {
     <div>
       <h1>This is welcome page! Click below for links</h1>
       <Link to="intro">Link to intro</Link>
+      <Link to="about">Link to about </Link>
       <Outlet />
     </div>
   );
