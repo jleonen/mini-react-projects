@@ -10,3 +10,17 @@
 .searchHeading {
   color: #778da9;
 }
+
+.playerBtn {
+  border: none;
+  background-color: #778da9;
+  width: 150px;
+  border-radius: 25px;
+  height: 40px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.playerBtn:hover {
+  background-color: #acb5c0;
+}

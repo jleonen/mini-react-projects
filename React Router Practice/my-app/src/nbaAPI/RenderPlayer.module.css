@@ -1,8 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500&display=swap");
+
+body {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.5rem;
+}
+
 .resultList {
   list-style-type: none;
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
 }

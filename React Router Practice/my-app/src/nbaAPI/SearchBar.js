@@ -13,7 +13,9 @@ const SearchBar = (props) => {
       <form className={classes.searchContainer} onSubmit={submitFormHandler}>
         <h1 className={classes.searchHeading}>Search for an NBA Player </h1>
         <input ref={searchValue} placeholder="Input player here"></input>
-        <button type="submit">Search</button>
+        <button className={classes.playerBtn} type="submit">
+          Search
+        </button>
       </form>
     </div>
   );

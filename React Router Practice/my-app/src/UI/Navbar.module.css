@@ -1,5 +1,6 @@
 .navContainer {
-  background-color: aqua;
+  /* background-color: aqua; */
+  background-color: #778da9;
   display: flex;
   justify-content: space-around;
 }

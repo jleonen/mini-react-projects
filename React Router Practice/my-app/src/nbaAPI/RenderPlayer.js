@@ -26,6 +26,7 @@ const RenderPlayer = () => {
       );
       console.log(response);
       const result = await response.json();
+      console.log(result.data[0]["team"].full_name);
       setResults([...result.data]);
       //   setResults(
       //     result.data.map((item) => {
@@ -65,6 +66,12 @@ const RenderPlayer = () => {
         <SearchResults
           firstName={player.first_name}
           lastName={player.last_name}
+          heightFt={player.height_feet ? `${player.height_feet} ft` : "No data"}
+          heightIn={
+            player.height_inches ? `${player.height_inches} in` : "No data"
+          }
+          position={player.position ? player.position : "No data"}
+          team={player["team"].full_name}
         />
       </li>
     ));
