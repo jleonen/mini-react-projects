@@ -18,8 +18,7 @@ const RenderPlayer = () => {
           method: "GET",
           headers: {
             "x-rapidapi-host": "free-nba.p.rapidapi.com",
-            "x-rapidapi-key":
-              "5ac30b084bmsh0cbed315ffdbb37p1a4bd6jsn5191d37aa887",
+            "x-rapidapi-key": "insert key here",
           },
         }
       );
