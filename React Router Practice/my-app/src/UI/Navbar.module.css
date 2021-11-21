@@ -1,0 +1,25 @@
+.navContainer {
+  background-color: aqua;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navHeader {
+  margin-top: 0px;
+}
+
+.navList {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+}
+
+.navList li a {
+  text-decoration: none;
+}
+
+.navContainer a.active {
+  color: white;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid black;
+}
