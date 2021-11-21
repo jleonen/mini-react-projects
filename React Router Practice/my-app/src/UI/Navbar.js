@@ -11,7 +11,7 @@ const Navbar = () => {
             className={(navData) => (navData.isActive ? classes.active : "")}
             to="/nbaplayers"
           >
-            NBA API
+            NBA Player Search
           </NavLink>
         </li>
         <li>
