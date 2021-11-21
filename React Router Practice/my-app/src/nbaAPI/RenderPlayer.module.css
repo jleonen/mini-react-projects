@@ -1,0 +1,8 @@
+.resultList {
+  list-style-type: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}

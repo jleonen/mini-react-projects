@@ -1,0 +1,12 @@
+.searchContainer {
+  background-color: #e0e1dd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  border: 1.5rem solid #415a77;
+}
+
+.searchHeading {
+  color: #778da9;
+}

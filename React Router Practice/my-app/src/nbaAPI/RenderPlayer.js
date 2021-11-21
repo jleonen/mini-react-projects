@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
+import classes from "./RenderPlayer.module.css";
 
 const RenderPlayer = () => {
   const [results, setResults] = useState([]);
@@ -18,7 +19,8 @@ const RenderPlayer = () => {
           method: "GET",
           headers: {
             "x-rapidapi-host": "free-nba.p.rapidapi.com",
-            "x-rapidapi-key": "insert key here",
+            "x-rapidapi-key":
+              "3167f09b7emsh7b10a102b88ec55p19d6c9jsn03e7c2824144",
           },
         }
       );
@@ -68,11 +70,11 @@ const RenderPlayer = () => {
     ));
   }
   return (
-    <div>
+    <div className={classes.resultsContainer}>
+      <SearchBar onSearch={searchHandler} />
       {error && <p>{error}</p>}
       {isLoading && <p>Loading data....</p>}
-      <ul>{content}</ul>
-      <SearchBar onSearch={searchHandler} />
+      <ul className={classes.resultList}>{content}</ul>
     </div>
   );
 };

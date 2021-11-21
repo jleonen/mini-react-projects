@@ -1,8 +1,12 @@
+import classes from "./SearchResults.module.css";
 const SearchResults = (props) => {
   return (
-    <div>
-      <span> {props.firstName} </span>
-      <span> {props.lastName}</span>
+    <div className={classes.resultsContainer}>
+      <span>
+        {" "}
+        <strong>Name:</strong>
+        {props.firstName} {props.lastName}
+      </span>
     </div>
   );
 };
