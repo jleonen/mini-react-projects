@@ -9,9 +9,9 @@ const Navbar = () => {
         <li>
           <NavLink
             className={(navData) => (navData.isActive ? classes.active : "")}
-            to="/api"
+            to="/nbaplayers"
           >
-            API Practice
+            NBA API
           </NavLink>
         </li>
         <li>

@@ -5,6 +5,7 @@ import Intro from "./pages/Intro";
 import About from "./pages/About";
 import Features from "./pages/Features";
 import Navbar from "./UI/Navbar";
+import RenderPlayer from "./nbaAPI/RenderPlayer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         </Route>
         <Route path="/welcome/about" element={<About />} />
         <Route path="/welcome/:page" element={<Features />} />
+        <Route path="/nbaplayers" element={<RenderPlayer />} />
       </Routes>
     </Fragment>
   );
