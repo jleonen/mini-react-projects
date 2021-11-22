@@ -1,12 +1,11 @@
-import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TeamItem from "./TeamItem";
 import classes from "./RenderTeam.module.css";
 
 const RenderTeam = () => {
   const [east, setEast] = useState([]);
   const [west, setWest] = useState([]);
-  const searcHandler = async () => {
+  const searcHandler = useCallback(async () => {
     const teamResponse = await fetch(
       "https://free-nba.p.rapidapi.com/teams?page=0",
       {
@@ -15,14 +14,12 @@ const RenderTeam = () => {
           "x-rapidapi-host": "free-nba.p.rapidapi.com",
           "x-rapidapi-key":
             // ******REMOVE KEY PRIOR TO COMITTING***********
-            "insert api key here",
+            "insert api key",
         },
       }
     );
     const teams = await teamResponse.json();
     const teamList = [...teams.data];
-    console.log(teamList[0]["conference"]);
-    //const result = words.filter(word => word.length > 6);
     setEast(teamList.filter((team) => team["conference"] === "East"));
     setWest(teamList.filter((team) => team["conference"] === "West"));
     //Atlantic, Central, Southeast (Eastern Conference) and Northwest, Pacific, Southwest
@@ -56,27 +53,17 @@ const RenderTeam = () => {
     // playerList.forEach((item, i) => {
     //   console.log(item[i]);
     // });
-  };
+  }, []);
+  useEffect(() => {
+    searcHandler();
+  }, [searcHandler]);
   return (
     <div className={classes.teamContainer}>
-      <SearchBar onSearch={searcHandler} />
-      <div className={classes.westCon}>
-        <h1>Eastern Conference </h1>
-        {east.map((item) => (
-          <li>
-            <TeamItem
-              fullName={item.full_name}
-              abbreviation={item.abbreviation}
-              city={item.city}
-              division={item.division}
-            />
-          </li>
-        ))}
-      </div>
       <div className={classes.eastCon}>
-        <h1>Western Conference </h1>
-        {west.map((item) => (
-          <li>
+        <h1 className={classes.eastHeader}>Eastern Conference </h1>
+        {/* <div className={classes.eastResults}> */}
+        {east.map((item) => (
+          <li className={classes.eastItems}>
             <TeamItem
               fullName={item.full_name}
               abbreviation={item.abbreviation}
@@ -85,6 +72,22 @@ const RenderTeam = () => {
             />
           </li>
         ))}
+        {/* </div> */}
+      </div>
+      <div className={classes.westCon}>
+        <h1 className={classes.westHeader}>Western Conference </h1>
+        {/* <div className={classes.westResults}> */}
+        {west.map((item) => (
+          <li className={classes.westItems}>
+            <TeamItem
+              fullName={item.full_name}
+              abbreviation={item.abbreviation}
+              city={item.city}
+              division={item.division}
+            />
+          </li>
+        ))}
+        {/* </div> */}
       </div>
     </div>
   );

@@ -1,8 +1,39 @@
 .teamContainer {
   display: flex;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #1b263b;
 }
 
 .westCon li,
 .eastCon li {
   list-style-type: none;
+}
+
+.eastCon,
+.westCon {
+  width: 500px;
+}
+
+.eastCon {
+  background-color: #227c9d;
+}
+
+.westCon {
+  background-color: #fe6d73;
+}
+
+.eastHeader,
+.westHeader,
+.westItems,
+.eastItems {
+  color: #e0e1dd;
+}
+
+.eastItems {
+  background-color: #2c9cc4;
+}
+
+.westItems {
+  background-color: #aa4d50;
 }

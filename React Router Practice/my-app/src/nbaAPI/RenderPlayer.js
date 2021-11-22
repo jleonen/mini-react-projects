@@ -20,7 +20,7 @@ const RenderPlayer = () => {
           headers: {
             "x-rapidapi-host": "free-nba.p.rapidapi.com",
             // ******REMOVE KEY PRIOR TO COMITTING***********
-            "x-rapidapi-key": "insert key here",
+            "x-rapidapi-key": "insert api key",
           },
         }
       );
