@@ -14,7 +14,7 @@ const RenderTeam = () => {
           "x-rapidapi-host": "free-nba.p.rapidapi.com",
           "x-rapidapi-key":
             // ******REMOVE KEY PRIOR TO COMITTING***********
-            "insert api key",
+            "",
         },
       }
     );

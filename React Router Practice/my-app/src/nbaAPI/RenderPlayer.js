@@ -7,9 +7,12 @@ const RenderPlayer = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [emptyResults, setEmptyResults] = useState(false);
+  let content;
   const searchHandler = async (data) => {
     setIsLoading(true);
     setError(null);
+    setEmptyResults(false);
     const searchData = data.split(" ").join("%20");
     console.log(searchData);
     try {
@@ -20,13 +23,13 @@ const RenderPlayer = () => {
           headers: {
             "x-rapidapi-host": "free-nba.p.rapidapi.com",
             // ******REMOVE KEY PRIOR TO COMITTING***********
-            "x-rapidapi-key": "insert api key",
+            "x-rapidapi-key": "",
           },
         }
       );
-      console.log(response);
       const result = await response.json();
-      console.log(result.data[0]["team"].full_name);
+      //console.log(result.data[0]["team"].full_name);
+      result.data.length === 0 && setEmptyResults(true);
       setResults([...result.data]);
       //   setResults(
       //     result.data.map((item) => {
@@ -45,9 +48,10 @@ const RenderPlayer = () => {
     } catch (error) {
       setError(error.message);
     }
+
     setIsLoading(false);
   };
-  let content;
+
   //   if (!isLoading) {
   //     content = <p>Use search bar to start looking for an NBA player</p>;
   //   } else {
@@ -71,16 +75,18 @@ const RenderPlayer = () => {
             player.height_inches ? `${player.height_inches} in` : "No data"
           }
           position={player.position ? player.position : "No data"}
-          team={player["team"].full_name}
+          team={player["team"].full_name ? player["team"].full_name : "No data"}
         />
       </li>
     ));
   }
+
   return (
     <div className={classes.resultsContainer}>
       <SearchBar onSearch={searchHandler} />
       {error && <p>{error}</p>}
       {isLoading && <p>Loading data....</p>}
+      {emptyResults && <p>No player found. Try again.</p>}
       <ul className={classes.resultList}>{content}</ul>
     </div>
   );
