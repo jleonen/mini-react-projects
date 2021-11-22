@@ -37,3 +37,12 @@
 .westItems {
   background-color: #aa4d50;
 }
+
+.errorMsg {
+  color: #aa4d50;
+  font-weight: bold;
+}
+
+.loadingMsg {
+  color: white;
+}

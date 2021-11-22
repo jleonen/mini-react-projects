@@ -8,7 +8,7 @@ const RenderPlayer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [emptyResults, setEmptyResults] = useState(false);
-  let content;
+
   const searchHandler = async (data) => {
     setIsLoading(true);
     setError(null);
@@ -28,23 +28,8 @@ const RenderPlayer = () => {
         }
       );
       const result = await response.json();
-      //console.log(result.data[0]["team"].full_name);
       result.data.length === 0 && setEmptyResults(true);
       setResults([...result.data]);
-      //   setResults(
-      //     result.data.map((item) => {
-      //       return {
-      //         key: Math.random(),
-      //         id: Math.random(),
-      //         first_name: item.first_name,
-      //         last_name: item.last_name,
-      //       };
-      //     })
-      //   );
-      //   console.log(results);
-      //   results.map((item) => {
-      //     console.log(item.last_name);
-      //   });
     } catch (error) {
       setError(error.message);
     }
@@ -61,6 +46,8 @@ const RenderPlayer = () => {
   //   if (error) {
   //     content = <p>{error} </p>;
   //   }
+
+  let content;
 
   if (results.length === 0) {
     content = <p>No player found. Try again.</p>;
