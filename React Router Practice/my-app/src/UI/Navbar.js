@@ -30,6 +30,14 @@ const Navbar = () => {
             Features
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.active : "")}
+            to="/nbateams"
+          >
+            NBA Teams
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

@@ -1,0 +1,8 @@
+.teamContainer {
+  display: flex;
+}
+
+.westCon li,
+.eastCon li {
+  list-style-type: none;
+}
