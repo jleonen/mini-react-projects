@@ -10,7 +10,7 @@ function httpReducer(state, action) {
   }
   if (action.type === "SUCCESS") {
     return {
-      data: action.response,
+      data: action.responseData,
       error: null,
       status: "completed",
     };
@@ -25,9 +25,9 @@ function httpReducer(state, action) {
   return state;
 }
 
-function useHttp(requestFunction, loading = false) {
+function useHttp(requestFunction) {
   const [httpState, dispatch] = useReducer(httpReducer, {
-    status: loading ? "loading" : null,
+    status: null,
     data: null,
     error: null,
   });
@@ -36,8 +36,10 @@ function useHttp(requestFunction, loading = false) {
     async function (data) {
       dispatch({ type: "SEND" });
       try {
-        const response = await requestFunction(data);
-        dispatch({ type: "SUCCESS", response });
+        const responseData = await requestFunction(data);
+        console.log(responseData);
+        dispatch({ type: "SUCCESS", responseData });
+        console.log(httpState);
       } catch (error) {
         dispatch({
           type: "ERROR",
@@ -45,7 +47,7 @@ function useHttp(requestFunction, loading = false) {
         });
       }
     },
-    [requestFunction]
+    [requestFunction, httpState]
   );
   return {
     sendRequest,

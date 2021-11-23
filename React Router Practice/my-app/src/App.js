@@ -7,6 +7,7 @@ import Features from "./pages/Features";
 import Navbar from "./UI/Navbar";
 import RenderPlayer from "./nbaAPI/RenderPlayer";
 import RenderTeam from "./nbaAPI/RenderTeam";
+import SpecificTeam from "./nbaAPI/SpecificTeam";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/welcome/about" element={<About />} />
         <Route path="/welcome/:page" element={<Features />} />
         <Route path="/nbaplayers" element={<RenderPlayer />} />
+        <Route path="/nbaplayers/:team" element={<SpecificTeam />} />
         <Route path="/nbateams" element={<RenderTeam />} />
       </Routes>
     </Fragment>

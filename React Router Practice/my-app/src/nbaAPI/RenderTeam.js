@@ -22,6 +22,7 @@ const RenderTeam = () => {
       setError(true);
     }
   }, []);
+
   useEffect(() => {
     searchHandler();
   }, [searchHandler]);

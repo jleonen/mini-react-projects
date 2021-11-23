@@ -1,4 +1,5 @@
 import classes from "./SearchResults.module.css";
+import { Link } from "react-router-dom";
 const SearchResults = (props) => {
   return (
     <div className={classes.resultsContainer}>
@@ -16,7 +17,7 @@ const SearchResults = (props) => {
       </span>
       <span>
         <strong>Team:</strong>
-        {props.team}
+        <Link to={`/nbaplayers/${props.team}`}>{props.team}</Link>
       </span>
     </div>
   );

@@ -4,11 +4,9 @@ const API_KEY = "";
 
 export async function getTeams() {
   const response = await fetch(`${BASE_URL}/teams?page=0`, {
-    //   const response = await fetch(`https://free-nba.p.rapidapi.com/teams?page=0`, {
     method: "GET",
     headers: {
       "x-rapidapi-host": "free-nba.p.rapidapi.com",
-      // ******REMOVE KEY PRIOR TO COMITTING***********
       "x-rapidapi-key": `${API_KEY}`,
     },
   });
@@ -26,6 +24,28 @@ export async function getTeams() {
   };
 }
 
+export async function getSpecificTeam(team) {
+  const response = await fetch(`${BASE_URL}/teams?page=0`, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": "free-nba.p.rapidapi.com",
+      "x-rapidapi-key": `${API_KEY}`,
+    },
+  });
+  const teams = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Could not load teams. Please try again later");
+  }
+  const teamList = [...teams.data];
+  console.log(teamList[0].full_name);
+  console.log(team);
+  const teamName = team;
+  const target = teamList.filter((team) => team.full_name === teamName);
+  console.log(target);
+  return target;
+}
+
 export async function getPlayer(searchData) {
   const response = await fetch(
     `${BASE_URL}/players?page=0&per_page=25&search=${searchData}`,
@@ -40,7 +60,6 @@ export async function getPlayer(searchData) {
   );
   const result = await response.json();
   console.log(result.data);
-  console.log(result.data[0]["first_name"]);
   if (!response.ok) {
     throw new Error("Could not load teams. Please try again later");
   }
