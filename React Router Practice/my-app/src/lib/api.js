@@ -38,11 +38,8 @@ export async function getSpecificTeam(team) {
     throw new Error("Could not load teams. Please try again later");
   }
   const teamList = [...teams.data];
-  console.log(teamList[0].full_name);
-  console.log(team);
   const teamName = team;
   const target = teamList.filter((team) => team.full_name === teamName);
-  console.log(target);
   return target;
 }
 
