@@ -2,12 +2,17 @@ import { useState } from "react";
 
 const GroceryForm = (props) => {
   const [item, setItem] = useState("");
+  const [store, setStore] = useState("");
   const [cost, setCost] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
 
   const addItemHandler = (event) => {
     setItem(event.target.value);
+  };
+
+  const storeHandler = (event) => {
+    setStore(event.target.value);
   };
 
   const costHandler = (event) => {
@@ -24,6 +29,7 @@ const GroceryForm = (props) => {
 
   const resetValues = () => {
     setItem("");
+    setStore("");
     setQuantity("");
     setCost("");
     setUnit("");
@@ -32,6 +38,7 @@ const GroceryForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(item, cost, quantity, unit);
+    props.onAddItems(item, store, cost, quantity, unit);
     resetValues();
   };
 
@@ -40,6 +47,8 @@ const GroceryForm = (props) => {
       <form onSubmit={submitHandler}>
         <label>Grocery Item:</label>
         <input onChange={addItemHandler} value={item}></input>
+        <label>Store:</label>
+        <input onChange={storeHandler} value={store}></input>
         <label>Estimated Cost:</label>
         <input onChange={costHandler} value={cost}></input>
         <label>Quantity:</label>
