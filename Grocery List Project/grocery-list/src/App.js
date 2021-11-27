@@ -1,7 +1,11 @@
-import "./App.css";
+import GroceryForm from "./components/GroceryForm";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <GroceryForm />
+    </div>
+  );
 }
 
 export default App;
