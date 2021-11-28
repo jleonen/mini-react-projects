@@ -6,7 +6,7 @@ const ShoppingPage = (props) => {
   return (
     <div>
       <StoreList list={props.list} />
-      <GroceryList items={props.items} />
+      {/* <GroceryList items={props.items} /> */}
       {/* <ShoppingDetail items={props.items} /> */}
     </div>
   );

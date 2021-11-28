@@ -36,23 +36,23 @@ const StoreList = (props) => {
       console.log(itemsList);
       return specificStore;
     });
-    // storeName.store[0]["name"] === store
   };
   return (
-    <div className={classes.storesContainer}>
-      {props.list.map((store) => (
-        <div>
-          <StoreCard
-            id={store.id}
-            name={store.store[0]["name"]}
-            totalQuantity={store.store[0]["itemList"].length}
-            totalCost={store.store[0]["totalCost"]}
-            showStore={clickHandler}
-          />
-        </div>
-      ))}
+    <div className={classes.listContainer}>
+      <div className={classes.storesContainer}>
+        {props.list.map((store) => (
+          <div>
+            <StoreCard
+              id={store.id}
+              name={store.store[0]["name"]}
+              totalQuantity={store.store[0]["itemList"].length}
+              totalCost={store.store[0]["totalCost"]}
+              showStore={clickHandler}
+            />
+          </div>
+        ))}
+      </div>
       {details && <ShoppingDetail store={currentItems} />}
-      {/* <button onClick={clickHandler}>Click</button> */}
     </div>
   );
 };
