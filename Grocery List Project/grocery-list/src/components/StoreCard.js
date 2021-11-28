@@ -9,8 +9,7 @@ const StoreCard = (props) => {
         {props.totalQuantity}
       </p>
       <p>
-        <strong>Total Cost: </strong>
-        {props.totalCost}
+        <strong>Total Cost: </strong>${props.totalCost}
       </p>
     </div>
   );

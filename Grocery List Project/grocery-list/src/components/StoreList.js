@@ -18,6 +18,7 @@ const StoreList = (props) => {
   // );
 
   // console.log(totalCost);
+  //console.log(props.list);
   return (
     <div className={classes.storesContainer}>
       {props.list.map((store) => (
