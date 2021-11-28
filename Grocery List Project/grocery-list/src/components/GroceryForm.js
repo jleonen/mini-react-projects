@@ -1,4 +1,6 @@
 import { useState } from "react";
+import classes from "./GroceryForm.module.css";
+import Grocery from "../imgs/grocery-img.jpg";
 
 const GroceryForm = (props) => {
   const [item, setItem] = useState("");
@@ -43,22 +45,51 @@ const GroceryForm = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <label>Grocery Item:</label>
-        <input onChange={addItemHandler} value={item}></input>
-        <label>Store:</label>
-        <input onChange={storeHandler} value={store}></input>
-        <label>Estimated Cost:</label>
-        <input onChange={costHandler} value={cost}></input>
-        <label>Quantity:</label>
-        <input onChange={quantityHandler} value={quantity}></input>
-        <label>Unit of Measure:</label>
-        <input onChange={unitHandler} value={unit}></input>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+    <div className={classes.formContainer}>
+      <div className={classes.imgContainer}>
+        <img src={Grocery} alt="Grocery Item" />
+      </div>
+      <div className={classes.inputContainer}>
+        <h1>Enter grocery info here </h1>
+        <form onSubmit={submitHandler}>
+          {/* <label>Grocery Item:</label> */}
+          <input
+            onChange={addItemHandler}
+            value={item}
+            placeholder="Grocery Item"
+          ></input>
+          {/* <label>Store:</label> */}
+          <input
+            onChange={storeHandler}
+            value={store}
+            placeholder="Store"
+          ></input>
+          {/* <label>Estimated Cost:</label> */}
+          <input
+            onChange={costHandler}
+            value={cost}
+            placeholder="Estimated Cost"
+          ></input>
+          {/* <label>Quantity:</label> */}
+          <input
+            onChange={quantityHandler}
+            value={quantity}
+            placeholder="Quantity"
+          ></input>
+          {/* <label>Unit of Measure:</label> */}
+          <input
+            onChange={unitHandler}
+            value={unit}
+            placeholder="Unit of Measure"
+          ></input>
+
+          <div>
+            <button type="submit" className={classes.submitBtn}>
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
