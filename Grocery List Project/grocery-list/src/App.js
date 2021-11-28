@@ -14,10 +14,16 @@ function App() {
           store: [
             {
               name: store,
-              item,
-              cost,
-              quantity,
-              unit,
+              itemList: [
+                {
+                  name: item,
+                  cost: parseInt(cost),
+                  quantity,
+                  unit,
+                },
+              ],
+
+              totalCost: cost,
             },
           ],
         },
