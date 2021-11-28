@@ -1,4 +1,5 @@
 import GroceryList from "../components/GroceryList";
+import ShoppingDetail from "../components/ShoppingDetail";
 import StoreList from "../components/StoreList";
 
 const ShoppingPage = (props) => {
@@ -6,6 +7,7 @@ const ShoppingPage = (props) => {
     <div>
       <StoreList list={props.list} />
       <GroceryList items={props.items} />
+      {/* <ShoppingDetail items={props.items} /> */}
     </div>
   );
 };
