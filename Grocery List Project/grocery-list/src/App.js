@@ -1,6 +1,8 @@
 import { useState } from "react";
 import GroceryForm from "./components/GroceryForm";
+import GroceryList from "./components/GroceryList";
 import StoreList from "./components/StoreList";
+import ShoppingPage from "./pages/ShoppingPage";
 
 function App() {
   const [groceryList, setGroceryList] = useState([]);
@@ -61,7 +63,9 @@ function App() {
   return (
     <div>
       <GroceryForm onAddItems={addItemsHandler} />
-      <StoreList list={groceryList} />
+      {/* <StoreList list={groceryList} />
+      <GroceryList items={groceryList} /> */}
+      <ShoppingPage list={groceryList} items={groceryList} />
     </div>
   );
 }
