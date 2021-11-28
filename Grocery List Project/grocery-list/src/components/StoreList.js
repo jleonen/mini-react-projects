@@ -1,5 +1,5 @@
 import StoreCard from "./StoreCard";
-
+import classes from "./StoreList.module.css";
 const StoreList = (props) => {
   // const reducer = (total, current) => {
   //   return total + current;
@@ -19,7 +19,7 @@ const StoreList = (props) => {
 
   // console.log(totalCost);
   return (
-    <div>
+    <div className={classes.storesContainer}>
       {props.list.map((store) => (
         <StoreCard
           name={store.store[0]["name"]}

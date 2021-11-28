@@ -1,9 +1,17 @@
+import classes from "./StoreCard.module.css";
+
 const StoreCard = (props) => {
   return (
-    <div>
+    <div className={classes.cardContainer}>
       <h1>{props.name}</h1>
-      <p>Total Items:{props.totalQuantity}</p>
-      <p>Total Cost: {props.totalCost}</p>
+      <p>
+        <strong>Total Items:</strong>
+        {props.totalQuantity}
+      </p>
+      <p>
+        <strong>Total Cost: </strong>
+        {props.totalCost}
+      </p>
     </div>
   );
 };
