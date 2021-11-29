@@ -12,20 +12,19 @@ function App() {
     });
 
     if (storeCheck.length > 0) {
-      console.log(storeCheck[0].store[0]["itemList"]);
-
+      let { itemList, totalCost } = storeCheck[0].store[0];
+      console.log(totalCost);
       setGroceryList((prevItems) => {
-        storeCheck[0].store[0]["itemList"].push({
+        itemList.push({
           id: Math.random(),
           key: Math.random(),
           name: item,
-          cost: parseInt(cost),
+          cost: cost,
           quantity,
           unit,
         });
 
-        storeCheck[0].store[0]["totalCost"] =
-          +storeCheck[0].store[0]["totalCost"] + +cost;
+        storeCheck[0].store[0]["totalCost"] = +totalCost + +cost;
         return [...prevItems];
       });
     } else {
@@ -43,21 +42,19 @@ function App() {
                     id: Math.random(),
                     key: Math.random(),
                     name: item,
-                    cost: parseInt(cost),
+                    cost: cost,
                     quantity,
                     unit,
                   },
                 ],
 
-                totalCost: cost,
+                totalCost: Number(cost).toFixed(2),
               },
             ],
           },
         ];
       });
     }
-
-    console.log(groceryList);
   };
 
   return (

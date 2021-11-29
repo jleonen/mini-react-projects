@@ -13,16 +13,18 @@ const ShoppingDetail = (props) => {
         {itemList.map((item) => (
           <li className={classes.groceryItem}>
             <span>{item.name}</span>
+
             <div>
               <span>{item.quantity}</span>
               <span>{item.unit}</span>
             </div>
+            <span>${item.cost}</span>
           </li>
         ))}
       </div>
-      <div>
+      <div className={classes.totalAmt}>
         <span>Total Cost:$</span>
-        <span>{totalCost}</span>
+        <span>{Number(totalCost).toFixed(2)}</span>
       </div>
     </div>
   );
