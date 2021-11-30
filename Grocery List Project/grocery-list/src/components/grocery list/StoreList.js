@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ShoppingDetail from "./ShoppingDetail";
+import ShoppingDetail from "../grocery detail/ShoppingDetail";
 import StoreCard from "./StoreCard";
 import classes from "./StoreList.module.css";
 const StoreList = (props) => {

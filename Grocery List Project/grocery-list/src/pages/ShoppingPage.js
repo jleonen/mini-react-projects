@@ -1,6 +1,6 @@
-import GroceryList from "../components/GroceryList";
-import ShoppingDetail from "../components/ShoppingDetail";
-import StoreList from "../components/StoreList";
+import GroceryList from "../components/grocery list/GroceryList";
+import ShoppingDetail from "../components/grocery detail/ShoppingDetail";
+import StoreList from "../components/grocery list/StoreList";
 
 const ShoppingPage = (props) => {
   return (

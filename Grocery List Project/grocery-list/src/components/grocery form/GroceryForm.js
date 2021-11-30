@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classes from "./GroceryForm.module.css";
-import Grocery from "../imgs/grocery-img.jpg";
+import Grocery from "../../imgs/grocery-img.jpg";
 
 const GroceryForm = (props) => {
   const [item, setItem] = useState("");

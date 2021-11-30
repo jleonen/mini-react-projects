@@ -1,8 +1,8 @@
 import { useState } from "react";
-import GroceryForm from "./components/GroceryForm";
-import GroceryList from "./components/GroceryList";
+import GroceryForm from "./components/grocery form/GroceryForm";
+import GroceryList from "./components/grocery list/GroceryList";
 import InventoryList from "./components/inventory/InventoryItem";
-import StoreList from "./components/StoreList";
+import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 
 function App() {

@@ -1,4 +1,4 @@
-import ShoppingPage from "../pages/ShoppingPage";
+import ShoppingPage from "../../pages/ShoppingPage";
 import classes from "./ShoppingDetail.module.css";
 import ShoppingItem from "./ShoppingItem";
 
