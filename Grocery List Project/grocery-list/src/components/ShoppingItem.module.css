@@ -1,0 +1,14 @@
+.itemContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+}
+
+.sectionContainer li:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.sectionContainer li:last-child {
+  border-radius: 0 0 10px 10px;
+}
