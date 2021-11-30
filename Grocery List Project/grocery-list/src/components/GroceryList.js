@@ -9,12 +9,11 @@ const GroceryList = (props) => {
           <div>
             <h1>{name}</h1>
             {itemList.map((item) => (
-              <li>
-                <span>{item.name}</span>
-                <span>
-                  {item.quantity} {item.unit}
-                </span>
-              </li>
+              <GroceryItems
+                name={item.name}
+                quantity={item.quantity}
+                unit={item.unit}
+              />
             ))}
           </div>
         );

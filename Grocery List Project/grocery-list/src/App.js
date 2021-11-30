@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GroceryForm from "./components/GroceryForm";
 import GroceryList from "./components/GroceryList";
-import InventoryList from "./components/inventory/InventoryList";
+import InventoryList from "./components/inventory/InventoryItem";
 import StoreList from "./components/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 
@@ -59,27 +59,37 @@ function App() {
     }
   };
 
-  const deleteItemHandler = (store, id) => {
+  const deleteItemHandler = (store, itemId) => {
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
     });
     //console.log(storeCheck);
     let { name, itemList, totalCost } = storeCheck[0].store[0];
+    //UPLOAD DATA TO INVENTORY LIST
     setInventory((prevItems) => {
       const deletedItem = itemList.filter((item) => {
-        return item.id === +id;
+        return item.id === +itemId;
       });
-      const { name } = deletedItem[0];
+      const { id, name, quantity, unit } = deletedItem[0];
 
-      return [...prevItems, { name: name }];
+      return [
+        ...prevItems,
+        {
+          id: id,
+          name: name,
+          quantity: quantity,
+          unit: unit,
+        },
+      ];
     });
+    //DELETE ITEM AND UPDATE LIST
     if (itemList.length > 1) {
       setGroceryList((prevItems) => {
         const updatedItemList = itemList.filter((item) => {
-          return item.id !== +id;
+          return item.id !== +itemId;
         });
         const deletedItem = itemList.filter((item) => {
-          return item.id === +id;
+          return item.id === +itemId;
         });
 
         storeCheck[0].store[0]["totalCost"] =
@@ -100,6 +110,14 @@ function App() {
     }
   };
 
+  const inventoryTransactionHandler = (id) => {
+    console.log(id);
+    const targetItem = inventory.filter((item) => {
+      return item.id === +id;
+    });
+    console.log(targetItem);
+  };
+
   return (
     <div>
       <GroceryForm onAddItems={addItemsHandler} />
@@ -107,7 +125,10 @@ function App() {
       <GroceryList items={groceryList} /> */}
       {/* <ShoppingPage list={groceryList} items={groceryList} /> */}
       <StoreList list={groceryList} deleteItem={deleteItemHandler} />
-      <InventoryList inventory={inventory} />
+      <InventoryList
+        inventory={inventory}
+        onTransact={inventoryTransactionHandler}
+      />
     </div>
   );
 }

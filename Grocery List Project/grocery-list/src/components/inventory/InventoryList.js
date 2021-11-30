@@ -1,12 +1,9 @@
+import InventoryItem from "./InventoryItem";
+
 const InventoryList = (props) => {
-  console.log(props.inventory);
   return (
     <div>
-      <ul>
-        {props.inventory.map((item) => (
-          <li>{item.name}</li>
-        ))}
-      </ul>
+      <InventoryItem inventory={props.inventory} />
     </div>
   );
 };

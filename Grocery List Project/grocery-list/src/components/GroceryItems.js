@@ -1,7 +1,12 @@
 const GroceryItems = (props) => {
   return (
     <div>
-      <ul>{props.children}</ul>
+      <li>
+        <span>{props.name}</span>
+        <span>
+          {props.quantity} {props.unit}
+        </span>
+      </li>
     </div>
   );
 };
