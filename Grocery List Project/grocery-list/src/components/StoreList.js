@@ -5,6 +5,9 @@ import classes from "./StoreList.module.css";
 const StoreList = (props) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [details, setDetails] = useState(false);
+  const deleteItemHandler = (name, id) => {
+    props.deleteItem(name, id);
+  };
 
   const showListHandler = (id) => {
     setDetails(true);
@@ -37,7 +40,13 @@ const StoreList = (props) => {
           );
         })}
       </div>
-      {details && <ShoppingDetail store={currentItems} />}
+      {details && (
+        <ShoppingDetail
+          store={currentItems}
+          onDeleteItem={deleteItemHandler}
+          id={props.id}
+        />
+      )}
     </div>
   );
 };

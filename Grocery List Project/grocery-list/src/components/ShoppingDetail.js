@@ -7,11 +7,22 @@ const ShoppingDetail = (props) => {
   //   return store.id === id;
   // })
   const { name, totalCost, itemList } = props.store[0].store[0];
+  const deleteItemHandler = (id) => {
+    props.onDeleteItem(name, id);
+  };
   return (
     <div className={classes.itemsContainer}>
       <h1>{name}</h1>
       <div className={classes.groceryContainer}>
-        <ShoppingItem itemList={itemList} />
+        <ShoppingItem
+          // id={item.id}
+          itemList={itemList}
+          onDelete={deleteItemHandler}
+          // name={item.name}
+          // quantity={item.quantity}
+          // unit={item.unit}
+          // cost={item.cost}
+        />
       </div>
       <div className={classes.totalAmt}>
         <span>Total Cost:$</span>

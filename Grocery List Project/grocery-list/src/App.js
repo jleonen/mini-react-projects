@@ -57,12 +57,18 @@ function App() {
     }
   };
 
+  const deleteItemHandler = (name, id) => {
+    console.log(id);
+    console.log(name);
+  };
+
   return (
     <div>
       <GroceryForm onAddItems={addItemsHandler} />
       {/* <StoreList list={groceryList} />
       <GroceryList items={groceryList} /> */}
-      <ShoppingPage list={groceryList} items={groceryList} />
+      {/* <ShoppingPage list={groceryList} items={groceryList} /> */}
+      <StoreList list={groceryList} deleteItem={deleteItemHandler} />
     </div>
   );
 }
