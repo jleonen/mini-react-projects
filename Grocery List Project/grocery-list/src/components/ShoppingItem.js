@@ -1,9 +1,9 @@
 import classes from "./ShoppingItem.module.css";
 const ShoppingItem = (props) => {
   const deleteItemHandler = (event) => {
-    props.onDelete(event.target.value);
-
-    console.log(event.target.value);
+    if (event.target.checked) {
+      props.onDelete(event.target.value);
+    }
   };
   return (
     <div className={classes.sectionContainer}>
@@ -13,7 +13,9 @@ const ShoppingItem = (props) => {
             <input
               type="checkbox"
               onClick={deleteItemHandler}
+              checked={false}
               value={item.id}
+              name="item"
             />
             {item.name}
           </span>

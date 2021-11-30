@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShoppingDetail from "./ShoppingDetail";
 import StoreCard from "./StoreCard";
 import classes from "./StoreList.module.css";
@@ -6,6 +6,12 @@ const StoreList = (props) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [details, setDetails] = useState(false);
   const deleteItemHandler = (name, id) => {
+    if (currentItems[0].store[0]["itemList"].length === 1) {
+      console.log(currentItems.length);
+      setCurrentItems([]);
+      setDetails(false);
+    }
+
     props.deleteItem(name, id);
   };
 
@@ -22,6 +28,7 @@ const StoreList = (props) => {
       return specificStore;
     });
   };
+
   return (
     <div className={classes.listContainer}>
       <div className={classes.storesContainer}>
