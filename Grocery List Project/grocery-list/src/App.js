@@ -1,11 +1,13 @@
 import { useState } from "react";
 import GroceryForm from "./components/GroceryForm";
 import GroceryList from "./components/GroceryList";
+import InventoryList from "./components/inventory/InventoryList";
 import StoreList from "./components/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 
 function App() {
   const [groceryList, setGroceryList] = useState([]);
+  const [inventory, setInventory] = useState([]);
   const addItemsHandler = (item, store, cost, quantity, unit) => {
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
@@ -63,6 +65,14 @@ function App() {
     });
     //console.log(storeCheck);
     let { name, itemList, totalCost } = storeCheck[0].store[0];
+    setInventory((prevItems) => {
+      const deletedItem = itemList.filter((item) => {
+        return item.id === +id;
+      });
+      const { name } = deletedItem[0];
+
+      return [...prevItems, { name: name }];
+    });
     if (itemList.length > 1) {
       setGroceryList((prevItems) => {
         const updatedItemList = itemList.filter((item) => {
@@ -71,6 +81,7 @@ function App() {
         const deletedItem = itemList.filter((item) => {
           return item.id === +id;
         });
+
         storeCheck[0].store[0]["totalCost"] =
           +totalCost - +deletedItem[0]["cost"];
         storeCheck[0].store[0]["itemList"] = [...updatedItemList];
@@ -96,6 +107,7 @@ function App() {
       <GroceryList items={groceryList} /> */}
       {/* <ShoppingPage list={groceryList} items={groceryList} /> */}
       <StoreList list={groceryList} deleteItem={deleteItemHandler} />
+      <InventoryList inventory={inventory} />
     </div>
   );
 }
