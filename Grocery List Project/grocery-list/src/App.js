@@ -57,9 +57,36 @@ function App() {
     }
   };
 
-  const deleteItemHandler = (name, id) => {
-    console.log(id);
-    console.log(name);
+  const deleteItemHandler = (store, id) => {
+    const storeCheck = groceryList.filter((storeName) => {
+      return storeName.store[0]["name"] === store;
+    });
+    //console.log(storeCheck);
+    let { name, itemList, totalCost } = storeCheck[0].store[0];
+    if (itemList.length > 1) {
+      setGroceryList((prevItems) => {
+        const updatedItemList = itemList.filter((item) => {
+          return item.id !== +id;
+        });
+        const deletedItem = itemList.filter((item) => {
+          return item.id === +id;
+        });
+        storeCheck[0].store[0]["totalCost"] =
+          +totalCost - +deletedItem[0]["cost"];
+        storeCheck[0].store[0]["itemList"] = [...updatedItemList];
+        console.log(storeCheck);
+
+        return [...prevItems];
+      });
+    } else if (itemList.length === 1) {
+      setGroceryList((prevItems) => {
+        const updatedList = groceryList.filter((storeName) => {
+          return storeName.store[0]["name"] !== name;
+        });
+        console.log(updatedList);
+        return [...updatedList];
+      });
+    }
   };
 
   return (
