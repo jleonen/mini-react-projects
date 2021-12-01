@@ -1,7 +1,10 @@
 import classes from "./InventoryItem.module.css";
+import { useRef } from "react";
 const InventoryItem = (props) => {
+  const amount = useRef();
   const transactionHandler = (event) => {
-    props.onTransact(event.target.value);
+    event.preventDefault();
+    props.onTransact(event.target.value, amount.current.value);
   };
   return (
     <div>
@@ -13,9 +16,17 @@ const InventoryItem = (props) => {
               {item.quantity}
               {item.unit}
             </span>
-            <button onClick={transactionHandler} value={item.id}>
-              Transact
-            </button>
+            <form onSubmit={transactionHandler}>
+              <input
+                type="number"
+                ref={amount}
+                min={0}
+                max={item.quantity}
+              ></input>
+              <button onClick={transactionHandler} value={item.id}>
+                Transact
+              </button>
+            </form>
           </div>
         ))}
       </ul>

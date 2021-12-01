@@ -4,6 +4,7 @@ import GroceryList from "./components/grocery list/GroceryList";
 import InventoryList from "./components/inventory/InventoryItem";
 import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
+import { useEffect } from "react/cjs/react.development";
 
 function App() {
   const [groceryList, setGroceryList] = useState([]);
@@ -110,12 +111,25 @@ function App() {
     }
   };
 
-  const inventoryTransactionHandler = (id) => {
+  const inventoryTransactionHandler = (id, amount) => {
     console.log(id);
+    // console.log(amount);
     const targetItem = inventory.filter((item) => {
       return item.id === +id;
     });
-    console.log(targetItem);
+    let { quantity } = targetItem[0];
+    setInventory((prevItems) => {
+      if (quantity >= 1 && amount <= quantity) {
+        targetItem[0].quantity = +quantity - +amount;
+        return [...prevItems];
+      } else if (amount > quantity || quantity <= 1) {
+        const updatedInventory = inventory.filter((item) => {
+          return item.id !== +id;
+        });
+        console.log(updatedInventory);
+        return updatedInventory;
+      }
+    });
   };
 
   return (
