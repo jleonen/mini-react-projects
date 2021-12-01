@@ -1,17 +1,44 @@
 import classes from "./InventoryItem.module.css";
 import { useRef } from "react";
 import Tabs from "../UI/Tabs";
+
 const InventoryItem = (props) => {
   const amount = useRef();
+  const action = useRef();
   const transactionHandler = (event) => {
     event.preventDefault();
-    let max = amount.current.max;
-    let currentAmount = amount.current.value;
-    if (currentAmount > max) {
-      currentAmount = max;
+    console.log(action.current.value);
+    console.log(event.target.value);
+    //console.log(props.inventory);
+    let dataList = event.target.value.split(",");
+    let data = {
+      id: dataList[0],
+      store: dataList[1],
+      item: dataList[2],
+      quantity: dataList[3],
+      unit: dataList[4],
+      cost: dataList[5],
+    };
+
+    if (action.current.value === "transact") {
+      if (+amount.current.value > +amount.current.max) {
+        amount.current.value = amount.current.max;
+      }
+
+      props.onTransact(
+        event.target.value,
+        amount.current.value,
+        action.current.value
+      );
+      amount.current.value = "";
+    } else if (action.current.value === "delete") {
+      amount.current.value = amount.current.max;
+      props.onTransact(
+        event.target.value,
+        amount.current.value,
+        action.current.value
+      );
     }
-    console.log(amount.current.max);
-    props.onTransact(event.target.value, currentAmount);
   };
   return (
     <div>
@@ -41,8 +68,17 @@ const InventoryItem = (props) => {
                 min={0}
                 max={item.quantity}
               ></input>
-              <button onClick={transactionHandler} value={item.id}>
-                Transact
+              <select ref={action}>
+                <option value="transact">Transact</option>
+                <option value="delete">Delete</option>
+                <option value="restock">Restock</option>
+              </select>
+              <button
+                onClick={transactionHandler}
+                type="submit"
+                value={item.id}
+              >
+                Execute
               </button>
             </form>
           </div>

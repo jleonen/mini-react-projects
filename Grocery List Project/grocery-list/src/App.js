@@ -71,15 +71,17 @@ function App() {
       const deletedItem = itemList.filter((item) => {
         return item.id === +itemId;
       });
-      const { id, name, quantity, unit } = deletedItem[0];
+      const { id, name, quantity, unit, cost } = deletedItem[0];
 
       return [
         ...prevItems,
         {
           id: id,
+          store: storeCheck[0].store[0]["name"],
           name: name,
           quantity: quantity,
           unit: unit,
+          cost: cost,
         },
       ];
     });
@@ -111,18 +113,22 @@ function App() {
     }
   };
 
-  const inventoryTransactionHandler = (id, amount) => {
+  const inventoryTransactionHandler = (id, amount, action) => {
     console.log(id);
     // console.log(amount);
     const targetItem = inventory.filter((item) => {
       return item.id === +id;
     });
+    console.log(targetItem);
     let { quantity } = targetItem[0];
     setInventory((prevItems) => {
-      if (quantity >= 1 && amount <= quantity) {
+      //if (quantity >= 1 && amount <= quantity) {
+      if (action === "transact") {
         targetItem[0].quantity = +quantity - +amount;
         return [...prevItems];
-      } else if (amount > quantity || quantity <= 1) {
+        // } else if (amount > quantity || quantity <= 1) {
+        //
+      } else if (action === "delete") {
         const updatedInventory = inventory.filter((item) => {
           return item.id !== +id;
         });
