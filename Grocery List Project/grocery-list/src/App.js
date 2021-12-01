@@ -113,29 +113,58 @@ function App() {
     }
   };
 
-  const inventoryTransactionHandler = (id, amount, action) => {
-    console.log(id);
+  const inventoryTransactionHandler = (data, amount, action) => {
+    //console.log(id);
     // console.log(amount);
     const targetItem = inventory.filter((item) => {
-      return item.id === +id;
+      return item.id === +data.id;
     });
     console.log(targetItem);
     let { quantity } = targetItem[0];
     setInventory((prevItems) => {
       //if (quantity >= 1 && amount <= quantity) {
       if (action === "transact") {
+        console.log(amount);
         targetItem[0].quantity = +quantity - +amount;
+        console.log(targetItem[0].quantity);
         return [...prevItems];
         // } else if (amount > quantity || quantity <= 1) {
         //
       } else if (action === "delete") {
         const updatedInventory = inventory.filter((item) => {
-          return item.id !== +id;
+          return item.id !== +data.id;
         });
         console.log(updatedInventory);
         return updatedInventory;
+        // } else if (action === "restock") {
+        //   let { id, item, store, cost, quantity, unit } = data;
+        //   addItemsHandler(item, store, cost, (quantity = amount), unit);
+        //   const updatedInventory = inventory.filter((item) => {
+        //     return item.id !== +id;
+        //   });
+        //   console.log(updatedInventory);
+        //   return [
+        //     updatedInventory,
+        // {
+        //   id: Math.round(),
+        //   name: item,
+        //   store: store,
+        //   cost: cost,
+        //   quantity: quantity,
+        //   unit: unit,
+        // },
+        // ];
+      } else if (action === "restock") {
+        return [...prevItems];
+      } else {
+        return [...prevItems];
       }
     });
+    // if (action === "restock") {
+    //   let { item, store, cost, quantity, unit } = data;
+    //   addItemsHandler(item, store, cost, (quantity = amount), unit);
+    //   return;
+    // }
   };
 
   return (
@@ -148,6 +177,7 @@ function App() {
       <InventoryList
         inventory={inventory}
         onTransact={inventoryTransactionHandler}
+        onRestock={addItemsHandler}
       />
     </div>
   );
