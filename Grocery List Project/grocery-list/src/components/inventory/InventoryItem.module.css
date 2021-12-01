@@ -26,3 +26,11 @@
 .outOfStock {
   color: salmon;
 }
+
+.active {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}

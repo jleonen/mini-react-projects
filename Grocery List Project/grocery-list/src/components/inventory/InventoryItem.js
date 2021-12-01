@@ -8,11 +8,16 @@ const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
   //const action = useRef();
   const [action, setAction] = useState("");
+  const [active, setActive] = useState(false);
   const actionChangeHandler = (event) => {
     setAction(event.target.value);
   };
   const amountChangeHandler = (event) => {
     setAmount(event.target.value);
+  };
+
+  const dropDownHandler = () => {
+    setActive(true);
   };
   const transactionHandler = (event) => {
     event.preventDefault();
@@ -49,6 +54,8 @@ const InventoryItem = (props) => {
       );
       // amount.current.value = "";
       setAction("");
+      setAmount("");
+      setActive(false);
       return;
     } else if (action === "delete") {
       let maxAmount = +data.quantity;
@@ -60,13 +67,15 @@ const InventoryItem = (props) => {
         action
       );
       //amount.current.value = "";
-      return;
+      setActive(false);
     } else if (action === "restock") {
       let { item, store, cost, quantity, unit } = data;
       let value = amount;
       //console.log(amount.target.value);
       props.onRestock(item, store, cost, (quantity = value), unit);
-
+      setAmount("");
+      setAction("");
+      setActive(false);
       // props.onTransact(
       //   //event.target.value,
       //   data,
@@ -75,13 +84,47 @@ const InventoryItem = (props) => {
       // );
     }
   };
+  let inputs;
+  if (action === "transact" || action === "restock") {
+    inputs = (
+      <input
+        type="number"
+        // ref={amount}
+        onChange={amountChangeHandler}
+        min={0}
+        //max={item.quantity}
+      ></input>
+    );
+  } else {
+    inputs = "";
+  }
+  let choices;
+  if (active) {
+    choices = (
+      <select onChange={actionChangeHandler} onFocus={dropDownHandler}>
+        <option value="">Choose action</option>
+        <option value="transact">Transact</option>
+        <option value="delete">Delete</option>
+        <option value="restock">Restock</option>
+      </select>
+    );
+  } else {
+    choices = (
+      <select onChange={actionChangeHandler} onFocus={dropDownHandler}>
+        <option value="">Choose action</option>
+      </select>
+    );
+  }
   return (
     <div>
       <Tabs>
         <span>Name</span>
         <span>Quantity</span>
         <span> Status </span>
-        <span>Actions</span>
+        <div>
+          <span>Actions</span>
+          {choices}
+        </div>
       </Tabs>
       <ul>
         {props.inventory.map((item) => (
@@ -97,19 +140,8 @@ const InventoryItem = (props) => {
               <span className={classes.inStock}>In stock </span>
             )}
             <form onSubmit={transactionHandler}>
-              <input
-                type="number"
-                // ref={amount}
-                onChange={amountChangeHandler}
-                min={0}
-                max={item.quantity}
-              ></input>
-              <select onChange={actionChangeHandler}>
-                <option>Choose action</option>
-                <option value="transact">Transact</option>
-                <option value="delete">Delete</option>
-                <option value="restock">Restock</option>
-              </select>
+              {inputs}
+
               <button
                 onClick={transactionHandler}
                 type="submit"
