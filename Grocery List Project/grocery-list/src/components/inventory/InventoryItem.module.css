@@ -2,3 +2,27 @@
   display: flex;
   justify-content: space-between;
 }
+
+.tabsContainer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.inventoryItem form input {
+  max-width: 50px;
+}
+
+.inStock,
+.outOfStock {
+  font-weight: bold;
+}
+
+.inStock {
+  color: lime;
+}
+
+.outOfStock {
+  color: salmon;
+}

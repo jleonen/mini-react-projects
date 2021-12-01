@@ -1,6 +1,8 @@
 .cardContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  font-size: 1.1rem;
   color: white;
   background-color: #52b69a;
   /* width: 40%; */

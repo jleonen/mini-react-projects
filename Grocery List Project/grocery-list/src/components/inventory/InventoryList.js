@@ -1,4 +1,5 @@
 import InventoryItem from "./InventoryItem";
+import classes from "./InventoryList.module.css";
 
 const InventoryList = (props) => {
   return (

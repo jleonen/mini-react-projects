@@ -1,6 +1,7 @@
 import ShoppingPage from "../../pages/ShoppingPage";
 import classes from "./ShoppingDetail.module.css";
 import ShoppingItem from "./ShoppingItem";
+import Tabs from "../UI/Tabs";
 
 const ShoppingDetail = (props) => {
   // const specificStore = props.items.filter((store) => {
@@ -14,6 +15,11 @@ const ShoppingDetail = (props) => {
     <div className={classes.itemsContainer}>
       <h1>{name}</h1>
       <div className={classes.groceryContainer}>
+        <Tabs>
+          <span>Name</span>
+          <span>Quantity</span>
+          <span>Cost</span>
+        </Tabs>
         <ShoppingItem
           // id={item.id}
           itemList={itemList}

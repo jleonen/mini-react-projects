@@ -1,0 +1,6 @@
+.tabsContainer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
