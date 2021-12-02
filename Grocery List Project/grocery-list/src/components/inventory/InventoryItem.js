@@ -25,11 +25,10 @@ const InventoryItem = (props) => {
   };
   const transactionHandler = (event) => {
     event.preventDefault();
-    //console.log(action.current.value);
+
     console.log(action);
     console.log(event.target.value);
-    //console.log(amount.current.max);
-    //console.log(props.inventory);
+
     let dataList = event.target.value.split(",");
     let data = {
       id: dataList[0],
@@ -57,18 +56,14 @@ const InventoryItem = (props) => {
       resetValues();
     } else if (action === "delete") {
       let maxAmount = +data.quantity;
-      props.onTransact(
-        data,
-
-        maxAmount,
-        action
-      );
+      props.onTransact(data, "_", action);
 
       resetValues();
     } else if (action === "restock") {
       let { item, store, price, unit } = data;
       console.log(data);
       props.onRestock(item, store, price, amount, unit);
+      props.onTransact(data, "_", action);
       resetValues();
     }
   };

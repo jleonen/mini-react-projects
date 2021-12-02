@@ -73,18 +73,29 @@ function App() {
       });
       const { id, name, price, quantity, unit, cost } = deletedItem[0];
 
-      return [
-        ...prevItems,
-        {
-          id: id,
-          store: storeCheck[0].store[0]["name"],
-          name: name,
-          price: +price,
-          quantity: quantity,
-          unit: unit,
-          cost: +cost * +quantity,
-        },
-      ];
+      //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
+      const itemCheck = inventory.filter((item) => {
+        return item.name === name;
+      });
+
+      console.log(itemCheck);
+      if (itemCheck.length > 0) {
+        itemCheck[0]["quantity"] = +itemCheck[0]["quantity"] + +quantity;
+        return [...prevItems];
+      } else {
+        return [
+          ...prevItems,
+          {
+            id: id,
+            store: storeCheck[0].store[0]["name"],
+            name: name,
+            price: +price,
+            quantity: quantity,
+            unit: unit,
+            cost: +cost * +quantity,
+          },
+        ];
+      }
     });
     //DELETE ITEM AND UPDATE LIST
     if (itemList.length > 1) {
