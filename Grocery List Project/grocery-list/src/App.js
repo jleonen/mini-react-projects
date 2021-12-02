@@ -10,6 +10,7 @@ function App() {
   const [groceryList, setGroceryList] = useState([]);
   const [inventory, setInventory] = useState([]);
   const addItemsHandler = (item, store, cost, quantity, unit) => {
+    console.log(quantity);
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
     });
@@ -22,12 +23,13 @@ function App() {
           id: Math.random(),
           key: Math.random(),
           name: item,
-          cost: cost,
+          price: +cost,
+          cost: +cost * +quantity,
           quantity,
           unit,
         });
 
-        storeCheck[0].store[0]["totalCost"] = +totalCost + +cost;
+        storeCheck[0].store[0]["totalCost"] = +totalCost + +cost * +quantity;
         return [...prevItems];
       });
     } else {
@@ -45,13 +47,14 @@ function App() {
                     id: Math.random(),
                     key: Math.random(),
                     name: item,
-                    cost: cost,
+                    price: +cost,
+                    cost: +cost * +quantity,
                     quantity,
                     unit,
                   },
                 ],
 
-                totalCost: Number(cost).toFixed(2),
+                totalCost: Number(+cost * +quantity).toFixed(2),
               },
             ],
           },
@@ -71,7 +74,7 @@ function App() {
       const deletedItem = itemList.filter((item) => {
         return item.id === +itemId;
       });
-      const { id, name, quantity, unit, cost } = deletedItem[0];
+      const { id, name, price, quantity, unit, cost } = deletedItem[0];
 
       return [
         ...prevItems,
@@ -79,9 +82,10 @@ function App() {
           id: id,
           store: storeCheck[0].store[0]["name"],
           name: name,
+          price: +price,
           quantity: quantity,
           unit: unit,
-          cost: cost,
+          cost: +cost * +quantity,
         },
       ];
     });

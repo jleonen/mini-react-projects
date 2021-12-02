@@ -1,12 +1,10 @@
 import classes from "./InventoryItem.module.css";
-import { useRef } from "react";
+import { useState } from "react";
 import Tabs from "../UI/Tabs";
-import { useState } from "react/cjs/react.development";
 
 const InventoryItem = (props) => {
-  //const amount = useRef();
   const [amount, setAmount] = useState("");
-  //const action = useRef();
+
   const [action, setAction] = useState("");
   const [active, setActive] = useState(false);
   const actionChangeHandler = (event) => {
@@ -18,6 +16,12 @@ const InventoryItem = (props) => {
 
   const dropDownHandler = () => {
     setActive(true);
+  };
+
+  const resetValues = () => {
+    setAction("");
+    setAmount("");
+    setActive(false);
   };
   const transactionHandler = (event) => {
     event.preventDefault();
@@ -33,67 +37,45 @@ const InventoryItem = (props) => {
       item: dataList[2],
       quantity: dataList[3],
       unit: dataList[4],
-      cost: dataList[5],
+      price: dataList[5],
     };
-    //console.log(data);
+
     if (action === "transact") {
       let transactionValue = amount;
-      // if (+amount.current.value > +amount.current.max) {
-      //   amount.current.value = amount.current.max;
-      // }
+
       if (+amount > +data.quantity) {
         transactionValue = +data.quantity;
       }
 
       props.onTransact(
-        //event.target.value,
         data,
-        //amount.current.value,
+
         transactionValue,
         action
       );
-      // amount.current.value = "";
-      setAction("");
-      setAmount("");
-      setActive(false);
-      return;
+
+      resetValues();
     } else if (action === "delete") {
       let maxAmount = +data.quantity;
       props.onTransact(
-        //event.target.value,
         data,
-        //amount.current.value,
+
         maxAmount,
         action
       );
-      //amount.current.value = "";
-      setActive(false);
+
+      resetValues();
     } else if (action === "restock") {
-      let { item, store, cost, quantity, unit } = data;
-      let value = amount;
-      //console.log(amount.target.value);
-      props.onRestock(item, store, cost, (quantity = value), unit);
-      setAmount("");
-      setAction("");
-      setActive(false);
-      // props.onTransact(
-      //   //event.target.value,
-      //   data,
-      //   amount.current.value,
-      //   action
-      // );
+      let { item, store, price, unit } = data;
+      console.log(data);
+      props.onRestock(item, store, price, amount, unit);
+      resetValues();
     }
   };
   let inputs;
   if (action === "transact" || action === "restock") {
     inputs = (
-      <input
-        type="number"
-        // ref={amount}
-        onChange={amountChangeHandler}
-        min={0}
-        //max={item.quantity}
-      ></input>
+      <input type="number" onChange={amountChangeHandler} min={0}></input>
     );
   } else {
     inputs = "";
@@ -119,7 +101,11 @@ const InventoryItem = (props) => {
     <div>
       <Tabs>
         <span>Name</span>
-        <span>Quantity</span>
+        {action === "restock" ? (
+          <span>Price per unit</span>
+        ) : (
+          <span>Quantity</span>
+        )}
         <span> Status </span>
         <div>
           <span>Actions</span>
@@ -128,12 +114,16 @@ const InventoryItem = (props) => {
       </Tabs>
       <ul>
         {props.inventory.map((item) => (
-          <div className={classes.inventoryItem}>
+          <div className={classes.inventoryItem} key={item.id}>
             <span>{item.name}</span>
-            <span>
-              {item.quantity}
-              {item.unit}
-            </span>
+            {action === "restock" ? (
+              <span>${item.price}</span>
+            ) : (
+              <span>
+                {item.quantity}
+                {item.unit}
+              </span>
+            )}
             {item.quantity === 0 ? (
               <span className={classes.outOfStock}>Out of stock</span>
             ) : (
@@ -151,10 +141,10 @@ const InventoryItem = (props) => {
                   item.name,
                   item.quantity,
                   item.unit,
-                  item.cost,
+                  item.price,
                 ]}
               >
-                Execute
+                {action === "delete" ? "Delete Item" : "Execute"}
               </button>
             </form>
           </div>

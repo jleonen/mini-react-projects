@@ -35,7 +35,7 @@ const StoreList = (props) => {
         {props.list.map((store) => {
           const { name, itemList, totalCost } = store.store[0];
           return (
-            <div>
+            <div key={Math.random()}>
               <StoreCard
                 id={store.id}
                 name={name}

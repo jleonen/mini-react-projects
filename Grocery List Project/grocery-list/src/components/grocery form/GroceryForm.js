@@ -68,7 +68,7 @@ const GroceryForm = (props) => {
           <input
             onChange={costHandler}
             value={cost}
-            placeholder="Estimated Cost"
+            placeholder="Estimated Cost per unit"
           ></input>
           {/* <label>Quantity:</label> */}
           <input

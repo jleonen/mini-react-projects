@@ -8,11 +8,11 @@ const ShoppingItem = (props) => {
   return (
     <div className={classes.sectionContainer}>
       {props.itemList.map((item) => (
-        <li className={classes.itemContainer}>
+        <li className={classes.itemContainer} key={Math.random()}>
           <span>
             <input
               type="checkbox"
-              onClick={deleteItemHandler}
+              onChange={deleteItemHandler}
               checked={false}
               value={item.id}
               name="item"
