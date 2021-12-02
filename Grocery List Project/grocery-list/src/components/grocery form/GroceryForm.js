@@ -39,7 +39,6 @@ const GroceryForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(item, cost, quantity, unit);
     props.onAddItems(item, store, cost, quantity, unit);
     resetValues();
   };
@@ -52,31 +51,28 @@ const GroceryForm = (props) => {
       <div className={classes.inputContainer}>
         <h1>Enter grocery info here </h1>
         <form onSubmit={submitHandler}>
-          {/* <label>Grocery Item:</label> */}
           <input
             onChange={addItemHandler}
             value={item}
             placeholder="Grocery Item"
           ></input>
-          {/* <label>Store:</label> */}
           <input
             onChange={storeHandler}
             value={store}
             placeholder="Store"
           ></input>
-          {/* <label>Estimated Cost:</label> */}
           <input
             onChange={costHandler}
             value={cost}
             placeholder="Estimated Cost per unit"
+            min={0}
           ></input>
-          {/* <label>Quantity:</label> */}
           <input
             onChange={quantityHandler}
             value={quantity}
             placeholder="Quantity"
+            min={0}
           ></input>
-          {/* <label>Unit of Measure:</label> */}
           <input
             onChange={unitHandler}
             value={unit}

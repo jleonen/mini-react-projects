@@ -20,15 +20,7 @@ const ShoppingDetail = (props) => {
           <span>Quantity</span>
           <span>Cost</span>
         </Tabs>
-        <ShoppingItem
-          // id={item.id}
-          itemList={itemList}
-          onDelete={deleteItemHandler}
-          // name={item.name}
-          // quantity={item.quantity}
-          // unit={item.unit}
-          // cost={item.cost}
-        />
+        <ShoppingItem itemList={itemList} onDelete={deleteItemHandler} />
       </div>
       <div className={classes.totalAmt}>
         <span>Total Cost:$</span>

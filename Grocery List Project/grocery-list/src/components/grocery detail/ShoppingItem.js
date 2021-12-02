@@ -32,16 +32,3 @@ const ShoppingItem = (props) => {
 };
 
 export default ShoppingItem;
-
-{
-  /* <span>
-          <input type="checkbox" onClick={deleteItemHandler} value={props.id} />
-          {props.name}
-        </span>
-
-        <div>
-          <span>{props.quantity}</span>
-          <span>{props.unit}</span>
-        </div>
-        <span>${props.cost}</span> */
-}

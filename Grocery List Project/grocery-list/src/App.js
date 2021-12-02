@@ -10,14 +10,12 @@ function App() {
   const [groceryList, setGroceryList] = useState([]);
   const [inventory, setInventory] = useState([]);
   const addItemsHandler = (item, store, cost, quantity, unit) => {
-    console.log(quantity);
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
     });
 
     if (storeCheck.length > 0) {
       let { itemList, totalCost } = storeCheck[0].store[0];
-      console.log(totalCost);
       setGroceryList((prevItems) => {
         itemList.push({
           id: Math.random(),
@@ -67,7 +65,6 @@ function App() {
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
     });
-    //console.log(storeCheck);
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
     setInventory((prevItems) => {
@@ -102,8 +99,6 @@ function App() {
         storeCheck[0].store[0]["totalCost"] =
           +totalCost - +deletedItem[0]["cost"];
         storeCheck[0].store[0]["itemList"] = [...updatedItemList];
-        console.log(storeCheck);
-
         return [...prevItems];
       });
     } else if (itemList.length === 1) {
@@ -111,72 +106,40 @@ function App() {
         const updatedList = groceryList.filter((storeName) => {
           return storeName.store[0]["name"] !== name;
         });
-        console.log(updatedList);
         return [...updatedList];
       });
     }
   };
 
   const inventoryTransactionHandler = (data, amount, action) => {
-    //console.log(id);
-    // console.log(amount);
     const targetItem = inventory.filter((item) => {
       return item.id === +data.id;
     });
-    console.log(targetItem);
     let { quantity } = targetItem[0];
+
     setInventory((prevItems) => {
-      //if (quantity >= 1 && amount <= quantity) {
       if (action === "transact") {
-        console.log(amount);
         targetItem[0].quantity = +quantity - +amount;
-        console.log(targetItem[0].quantity);
         return [...prevItems];
-        // } else if (amount > quantity || quantity <= 1) {
-        //
       } else if (action === "delete") {
         const updatedInventory = inventory.filter((item) => {
           return item.id !== +data.id;
         });
-        console.log(updatedInventory);
         return updatedInventory;
-        // } else if (action === "restock") {
-        //   let { id, item, store, cost, quantity, unit } = data;
-        //   addItemsHandler(item, store, cost, (quantity = amount), unit);
-        //   const updatedInventory = inventory.filter((item) => {
-        //     return item.id !== +id;
-        //   });
-        //   console.log(updatedInventory);
-        //   return [
-        //     updatedInventory,
-        // {
-        //   id: Math.round(),
-        //   name: item,
-        //   store: store,
-        //   cost: cost,
-        //   quantity: quantity,
-        //   unit: unit,
-        // },
-        // ];
       } else if (action === "restock") {
-        return [...prevItems];
+        const updatedInventory = inventory.filter((item) => {
+          return item.id !== +data.id;
+        });
+        return updatedInventory;
       } else {
         return [...prevItems];
       }
     });
-    // if (action === "restock") {
-    //   let { item, store, cost, quantity, unit } = data;
-    //   addItemsHandler(item, store, cost, (quantity = amount), unit);
-    //   return;
-    // }
   };
 
   return (
     <div>
       <GroceryForm onAddItems={addItemsHandler} />
-      {/* <StoreList list={groceryList} />
-      <GroceryList items={groceryList} /> */}
-      {/* <ShoppingPage list={groceryList} items={groceryList} /> */}
       <StoreList list={groceryList} deleteItem={deleteItemHandler} />
       <InventoryList
         inventory={inventory}

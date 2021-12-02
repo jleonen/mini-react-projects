@@ -21,10 +21,6 @@ const StoreList = (props) => {
       const specificStore = props.list.filter((store) => {
         return store.id === id;
       });
-      // const { itemList } = specificStore[0].store[0];
-      // const itemsList = itemList.map((item) => {
-      //   return item.name;
-      // });
       return specificStore;
     });
   };
