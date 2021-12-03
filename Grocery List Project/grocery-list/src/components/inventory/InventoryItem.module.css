@@ -17,14 +17,20 @@
 .inStock,
 .outOfStock {
   font-weight: bold;
+  color: white;
+  border-radius: 6px;
+  width: 95px;
+  display: inline-block;
+  text-align: center;
+  height: 23px;
 }
 
 .inStock {
-  color: lime;
+  background-color: lime;
 }
 
 .outOfStock {
-  color: salmon;
+  background-color: salmon;
 }
 
 .active {
@@ -33,4 +39,16 @@
 
 .hidden {
   display: none;
+}
+
+.actionSelector {
+  height: 22px;
+}
+
+.itemName {
+  max-width: 70px;
+}
+
+.transactionBtn {
+  cursor: pointer;
 }

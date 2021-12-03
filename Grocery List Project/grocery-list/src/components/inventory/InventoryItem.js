@@ -1,6 +1,9 @@
 import classes from "./InventoryItem.module.css";
 import { useState } from "react";
 import Tabs from "../UI/Tabs";
+import { AiOutlineMinusSquare } from "react-icons/ai";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BsFillCartPlusFill } from "react-icons/bs";
 
 const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
@@ -55,15 +58,15 @@ const InventoryItem = (props) => {
 
       resetValues();
     } else if (action === "delete") {
-      let maxAmount = +data.quantity;
+      //let maxAmount = +data.quantity;
       props.onTransact(data, "_", action);
 
       resetValues();
     } else if (action === "restock") {
-      let { item, store, price, unit } = data;
+      let { item, store, price, unit, quantity } = data;
       console.log(data);
       props.onRestock(item, store, price, amount, unit);
-      props.onTransact(data, "_", action);
+      +quantity === 0 && props.onTransact(data, "_", action);
       resetValues();
     }
   };
@@ -78,7 +81,11 @@ const InventoryItem = (props) => {
   let choices;
   if (active) {
     choices = (
-      <select onChange={actionChangeHandler} onFocus={dropDownHandler}>
+      <select
+        className={classes.actionSelector}
+        onChange={actionChangeHandler}
+        onFocus={dropDownHandler}
+      >
         <option value="">Choose action</option>
         <option value="transact">Transact</option>
         <option value="delete">Delete</option>
@@ -91,6 +98,15 @@ const InventoryItem = (props) => {
         <option value="">Choose action</option>
       </select>
     );
+  }
+
+  let button;
+  if (action === "transact") {
+    button = <AiOutlineMinusSquare />;
+  } else if (action === "delete") {
+    button = <FaRegTrashAlt />;
+  } else {
+    button = <BsFillCartPlusFill />;
   }
   return (
     <div>
@@ -110,7 +126,7 @@ const InventoryItem = (props) => {
       <ul>
         {props.inventory.map((item) => (
           <div className={classes.inventoryItem} key={item.id}>
-            <span>{item.name}</span>
+            <span className={classes.itemName}>{item.name}</span>
             {action === "restock" ? (
               <span>${item.price}</span>
             ) : (
@@ -129,6 +145,7 @@ const InventoryItem = (props) => {
 
               <button
                 onClick={transactionHandler}
+                className={classes.transactionBtn}
                 type="submit"
                 value={[
                   item.id,
@@ -139,7 +156,7 @@ const InventoryItem = (props) => {
                   item.price,
                 ]}
               >
-                {action === "delete" ? "Delete Item" : "Execute"}
+                {button}
               </button>
             </form>
           </div>
