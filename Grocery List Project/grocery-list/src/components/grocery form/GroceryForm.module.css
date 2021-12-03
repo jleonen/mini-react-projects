@@ -54,3 +54,7 @@
   background-color: #99d98c;
   color: white;
 }
+
+form input {
+  width: 220px;
+}

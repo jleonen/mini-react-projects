@@ -6,19 +6,12 @@ import ErrorMessage from "../UI/ErrorMessage";
 import { useEffect } from "react/cjs/react.development";
 
 const GroceryForm = (props) => {
-  // const [item, setItem] = useState("");
-  // const [store, setStore] = useState("");
-  // const [cost, setCost] = useState("");
-  // const [quantity, setQuantity] = useState("");
-  // const [unit, setUnit] = useState("");
-
   //ITEM
   const {
     value: item,
     contentHandler: addItemHandler,
     isValid: validItem,
     blur: itemBlurHandler,
-    ///validBlur: itemCheck,
     formIsValid,
     setFormIsValid,
     reset: resetItem,
@@ -60,26 +53,6 @@ const GroceryForm = (props) => {
     reset: resetUnit,
   } = useFormControl("INPUT");
 
-  // const addItemHandler = (event) => {
-  //   setItem(event.target.value);
-  // };
-
-  // const storeHandler = (event) => {
-  //   setStore(event.target.value);
-  // };
-
-  // const costHandler = (event) => {
-  //   setCost(event.target.value);
-  // };
-
-  // const quantityHandler = (event) => {
-  //   setQuantity(event.target.value);
-  // };
-
-  // const unitHandler = (event) => {
-  //   setUnit(event.target.value);
-  // };
-
   const resetValues = () => {
     resetItem();
     resetStore();
@@ -87,15 +60,9 @@ const GroceryForm = (props) => {
     resetCost();
     resetUnit();
     setFormIsValid(null);
-    // setItem("");
-    // setStore("");
-    // setQuantity("");
-    // setCost("");
-    // setUnit("");
   };
 
   useEffect(() => {
-    console.log("active");
     if (validItem && validStore && validQuantity && validCost && validUnit) {
       setFormIsValid(true);
     } else {
@@ -106,7 +73,6 @@ const GroceryForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log(item.length === 0);
     if (formIsValid) {
       props.onAddItems(item, store, cost, quantity, unit);
       resetValues();
@@ -121,58 +87,68 @@ const GroceryForm = (props) => {
       <div className={classes.inputContainer}>
         <h1>Enter grocery info here </h1>
         <form onSubmit={submitHandler}>
-          <input
-            onChange={addItemHandler}
-            value={item}
-            onBlur={itemBlurHandler}
-            placeholder="Grocery Item"
-            required={true}
-          ></input>
-          {validItem === false && (
-            <ErrorMessage message="Item cannot be empty" />
-          )}
-          <input
-            onChange={storeHandler}
-            value={store}
-            onBlur={storeBlurHandler}
-            placeholder="Store"
-            required={true}
-          ></input>
-          {validStore == false && !formIsValid && (
-            <ErrorMessage message="Store cannot be empty" />
-          )}
-          <input
-            onChange={costHandler}
-            value={cost}
-            onBlur={costBlurHandler}
-            placeholder="Estimated Cost per unit"
-            min={0}
-            type="number"
-            required={true}
-          ></input>
-          {validCost == false && <ErrorMessage message="Enter valid cost" />}
-          <input
-            onChange={quantityHandler}
-            value={quantity}
-            onBlur={quantityBlurHandler}
-            placeholder="Quantity"
-            min={0}
-            type="number"
-            required={true}
-          ></input>
-          {validQuantity == false && (
-            <ErrorMessage message="Enter valid quantity" />
-          )}
-          <input
-            onChange={unitHandler}
-            value={unit}
-            onBlur={unitBlurHandler}
-            placeholder="Unit of Measure"
-            required={true}
-          ></input>
-          {validUnit == false && !formIsValid && (
-            <ErrorMessage message="Unit cannot be empty" />
-          )}
+          <div>
+            <input
+              onChange={addItemHandler}
+              value={item}
+              onBlur={itemBlurHandler}
+              placeholder="Grocery Item"
+              required={true}
+            ></input>
+            {validItem === false && (
+              <ErrorMessage message="Item cannot be empty" />
+            )}
+          </div>
+          <div>
+            <input
+              onChange={storeHandler}
+              value={store}
+              onBlur={storeBlurHandler}
+              placeholder="Store"
+              required={true}
+            ></input>
+            {validStore == false && !formIsValid && (
+              <ErrorMessage message="Store cannot be empty" />
+            )}
+          </div>
+          <div>
+            <input
+              onChange={costHandler}
+              value={cost}
+              onBlur={costBlurHandler}
+              placeholder="Estimated Cost per unit"
+              min={0}
+              type="number"
+              required={true}
+            ></input>
+            {validCost == false && <ErrorMessage message="Enter valid cost" />}
+          </div>
+          <div>
+            <input
+              onChange={quantityHandler}
+              value={quantity}
+              onBlur={quantityBlurHandler}
+              placeholder="Quantity"
+              min={0}
+              type="number"
+              required={true}
+            ></input>
+            {validQuantity == false && (
+              <ErrorMessage message="Enter valid quantity" />
+            )}
+          </div>
+          <div>
+            <input
+              onChange={unitHandler}
+              value={unit}
+              onBlur={unitBlurHandler}
+              placeholder="Unit of Measure"
+              required={true}
+            ></input>
+            {validUnit == false && !formIsValid && (
+              <ErrorMessage message="Unit cannot be empty" />
+            )}
+          </div>
           <div>
             <button type="submit" className={classes.submitBtn}>
               Submit

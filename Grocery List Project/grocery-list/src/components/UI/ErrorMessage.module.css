@@ -1,3 +1,15 @@
 .error {
   color: salmon;
+  font-weight: bold;
+  /* margin-top: 0; */
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.errorImg {
+  color: salmon;
 }
