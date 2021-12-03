@@ -1,40 +1,84 @@
 import { useState } from "react";
 import classes from "./GroceryForm.module.css";
 import Grocery from "../../imgs/grocery-img.jpg";
+import useFormControl from "../hooks/form-control";
 
 const GroceryForm = (props) => {
-  const [item, setItem] = useState("");
-  const [store, setStore] = useState("");
-  const [cost, setCost] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState("");
+  // const [item, setItem] = useState("");
+  // const [store, setStore] = useState("");
+  // const [cost, setCost] = useState("");
+  // const [quantity, setQuantity] = useState("");
+  // const [unit, setUnit] = useState("");
 
-  const addItemHandler = (event) => {
-    setItem(event.target.value);
-  };
+  //ITEM
+  const {
+    value: item,
+    contentHandler: addItemHandler,
+    isValid: validItem,
+    formIsValid,
+    setFormIsValid,
+    reset: resetItem,
+  } = useFormControl("INPUT");
 
-  const storeHandler = (event) => {
-    setStore(event.target.value);
-  };
+  //STORE
+  const {
+    value: store,
+    contentHandler: storeHandler,
+    isValid: validStore,
+    reset: resetStore,
+  } = useFormControl("INPUT");
 
-  const costHandler = (event) => {
-    setCost(event.target.value);
-  };
+  //COST
+  const {
+    value: cost,
+    contentHandler: costHandler,
+    isValid: validCost,
+    reset: resetCost,
+  } = useFormControl("QUANTITY");
+  const {
+    value: quantity,
+    contentHandler: quantityHandler,
+    isValid: validQuantity,
+    reset: resetQuantity,
+  } = useFormControl("QUANTITY");
+  const {
+    value: unit,
+    contentHandler: unitHandler,
+    isValid: validUnit,
+    reset: resetUnit,
+  } = useFormControl("INPUT");
 
-  const quantityHandler = (event) => {
-    setQuantity(event.target.value);
-  };
+  // const addItemHandler = (event) => {
+  //   setItem(event.target.value);
+  // };
 
-  const unitHandler = (event) => {
-    setUnit(event.target.value);
-  };
+  // const storeHandler = (event) => {
+  //   setStore(event.target.value);
+  // };
+
+  // const costHandler = (event) => {
+  //   setCost(event.target.value);
+  // };
+
+  // const quantityHandler = (event) => {
+  //   setQuantity(event.target.value);
+  // };
+
+  // const unitHandler = (event) => {
+  //   setUnit(event.target.value);
+  // };
 
   const resetValues = () => {
-    setItem("");
-    setStore("");
-    setQuantity("");
-    setCost("");
-    setUnit("");
+    resetItem();
+    resetStore();
+    resetQuantity();
+    resetCost();
+    resetUnit();
+    // setItem("");
+    // setStore("");
+    // setQuantity("");
+    // setCost("");
+    // setUnit("");
   };
 
   const submitHandler = (event) => {

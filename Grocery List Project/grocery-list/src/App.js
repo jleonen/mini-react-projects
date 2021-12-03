@@ -9,6 +9,7 @@ import { useEffect } from "react/cjs/react.development";
 function App() {
   const [groceryList, setGroceryList] = useState([]);
   const [inventory, setInventory] = useState([]);
+
   const addItemsHandler = (item, store, cost, quantity, unit) => {
     const storeCheck = groceryList.filter((storeName) => {
       return storeName.store[0]["name"] === store;
@@ -67,6 +68,7 @@ function App() {
     });
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
+
     setInventory((prevItems) => {
       const deletedItem = itemList.filter((item) => {
         return item.id === +itemId;
@@ -78,7 +80,6 @@ function App() {
         return item.name === name;
       });
 
-      console.log(itemCheck);
       if (itemCheck.length > 0) {
         itemCheck[0]["quantity"] = +itemCheck[0]["quantity"] + +quantity;
         return [...prevItems];
