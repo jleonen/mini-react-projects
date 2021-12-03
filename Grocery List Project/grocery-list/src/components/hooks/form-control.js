@@ -11,13 +11,13 @@ const inputStateReducer = (state, action) => {
     return { isValid: state.value.trim().length > 0, value: state.value };
   }
   if (action.type === "RESET") {
-    return { isValid: false, value: "" };
+    return { isValid: null, value: "" };
   }
   return inputStateReducer;
 };
 
 const useFormControl = (inputType) => {
-  const [formIsValid, setFormIsValid] = useState(true);
+  const [formIsValid, setFormIsValid] = useState(null);
 
   const [inputState, dispatchInput] = useReducer(inputStateReducer, {
     value: "",
