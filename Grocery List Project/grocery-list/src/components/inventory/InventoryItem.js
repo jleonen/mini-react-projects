@@ -1,9 +1,7 @@
 import classes from "./InventoryItem.module.css";
 import { useState } from "react";
 import Tabs from "../UI/Tabs";
-import { AiOutlineMinusSquare } from "react-icons/ai";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { BsFillCartPlusFill } from "react-icons/bs";
+import TransactionBtn from "../UI/TransactionBtn";
 
 const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
@@ -30,9 +28,11 @@ const InventoryItem = (props) => {
     event.preventDefault();
 
     console.log(action);
-    console.log(event.target.value);
+    console.log(event.currentTarget.value);
+    //currentTarget REFERS TO the element that triggered event while target only RETURNS the element returning event
+    //console.log(event.target.value);
 
-    let dataList = event.target.value.split(",");
+    let dataList = event.currentTarget.value.split(",");
     let data = {
       id: dataList[0],
       store: dataList[1],
@@ -100,8 +100,6 @@ const InventoryItem = (props) => {
     );
   }
 
-  let button;
-
   return (
     <div>
       <Tabs>
@@ -118,53 +116,33 @@ const InventoryItem = (props) => {
         </div>
       </Tabs>
       <ul>
-        {props.inventory.map((item) => {
-          const values = [
-            item.id,
-            item.store,
-            item.name,
-            item.quantity,
-            item.unit,
-            item.price,
-          ];
-          if (action === "transact") {
-            button = <AiOutlineMinusSquare onClick={transactionHandler} />;
-          } else if (action === "delete") {
-            button = <FaRegTrashAlt onClick={transactionHandler} />;
-          } else {
-            button = <BsFillCartPlusFill onClick={transactionHandler} />;
-          }
-          return (
-            <div className={classes.inventoryItem} key={item.id}>
-              <span className={classes.itemName}>{item.name}</span>
-              {action === "restock" ? (
-                <span>${item.price}</span>
-              ) : (
-                <span>
-                  {item.quantity}
-                  {item.unit}
-                </span>
-              )}
-              {item.quantity === 0 ? (
-                <span className={classes.outOfStock}>Out of stock</span>
-              ) : (
-                <span className={classes.inStock}>In stock </span>
-              )}
-              <form onSubmit={transactionHandler}>
-                {inputs}
+        {props.inventory.map((item) => (
+          <div className={classes.inventoryItem} key={item.id}>
+            <span className={classes.itemName}>{item.name}</span>
+            {action === "restock" ? (
+              <span>${item.price}</span>
+            ) : (
+              <span>
+                {item.quantity}
+                {item.unit}
+              </span>
+            )}
+            {item.quantity === 0 ? (
+              <span className={classes.outOfStock}>Out of stock</span>
+            ) : (
+              <span className={classes.inStock}>In stock </span>
+            )}
+            <form onSubmit={transactionHandler}>
+              {inputs}
 
-                <button
-                  onClick={transactionHandler}
-                  className={classes.transactionBtn}
-                  type="submit"
-                  value={values}
-                >
-                  {button}
-                </button>
-              </form>
-            </div>
-          );
-        })}
+              <TransactionBtn
+                onClick={transactionHandler}
+                inventory={props.inventory}
+                action={action}
+              />
+            </form>
+          </div>
+        ))}
       </ul>
     </div>
   );
