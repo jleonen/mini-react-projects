@@ -101,13 +101,7 @@ const InventoryItem = (props) => {
   }
 
   let button;
-  if (action === "transact") {
-    button = <AiOutlineMinusSquare />;
-  } else if (action === "delete") {
-    button = <FaRegTrashAlt />;
-  } else {
-    button = <BsFillCartPlusFill />;
-  }
+
   return (
     <div>
       <Tabs>
@@ -124,43 +118,53 @@ const InventoryItem = (props) => {
         </div>
       </Tabs>
       <ul>
-        {props.inventory.map((item) => (
-          <div className={classes.inventoryItem} key={item.id}>
-            <span className={classes.itemName}>{item.name}</span>
-            {action === "restock" ? (
-              <span>${item.price}</span>
-            ) : (
-              <span>
-                {item.quantity}
-                {item.unit}
-              </span>
-            )}
-            {item.quantity === 0 ? (
-              <span className={classes.outOfStock}>Out of stock</span>
-            ) : (
-              <span className={classes.inStock}>In stock </span>
-            )}
-            <form onSubmit={transactionHandler}>
-              {inputs}
+        {props.inventory.map((item) => {
+          const values = [
+            item.id,
+            item.store,
+            item.name,
+            item.quantity,
+            item.unit,
+            item.price,
+          ];
+          if (action === "transact") {
+            button = <AiOutlineMinusSquare onClick={transactionHandler} />;
+          } else if (action === "delete") {
+            button = <FaRegTrashAlt onClick={transactionHandler} />;
+          } else {
+            button = <BsFillCartPlusFill onClick={transactionHandler} />;
+          }
+          return (
+            <div className={classes.inventoryItem} key={item.id}>
+              <span className={classes.itemName}>{item.name}</span>
+              {action === "restock" ? (
+                <span>${item.price}</span>
+              ) : (
+                <span>
+                  {item.quantity}
+                  {item.unit}
+                </span>
+              )}
+              {item.quantity === 0 ? (
+                <span className={classes.outOfStock}>Out of stock</span>
+              ) : (
+                <span className={classes.inStock}>In stock </span>
+              )}
+              <form onSubmit={transactionHandler}>
+                {inputs}
 
-              <button
-                onClick={transactionHandler}
-                className={classes.transactionBtn}
-                type="submit"
-                value={[
-                  item.id,
-                  item.store,
-                  item.name,
-                  item.quantity,
-                  item.unit,
-                  item.price,
-                ]}
-              >
-                {button}
-              </button>
-            </form>
-          </div>
-        ))}
+                <button
+                  onClick={transactionHandler}
+                  className={classes.transactionBtn}
+                  type="submit"
+                  value={values}
+                >
+                  {button}
+                </button>
+              </form>
+            </div>
+          );
+        })}
       </ul>
     </div>
   );

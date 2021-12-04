@@ -6,14 +6,35 @@ import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 import { useEffect } from "react/cjs/react.development";
 
+const filterById = (list, targetId) => {
+  const target = list.filter((item) => {
+    return item.id === targetId;
+  });
+  return target;
+};
+
+const filterByItemName = (list, targetItem) => {
+  const target = list.filter((item) => {
+    return item.name === targetItem;
+  });
+  return target;
+};
+
+const filterByStoreName = (list, targetStore) => {
+  const target = list.filter((storeName) => {
+    return storeName.store[0]["name"] === targetStore;
+  });
+  return target;
+};
+
 function App() {
   const [groceryList, setGroceryList] = useState([]);
   const [inventory, setInventory] = useState([]);
 
   const addItemsHandler = (item, store, cost, quantity, unit) => {
-    const storeCheck = groceryList.filter((storeName) => {
-      return storeName.store[0]["name"] === store;
-    });
+    const storeCheck = filterByStoreName(groceryList, store);
+
+    //console.log(storeCheck[0].store[0].name);
 
     if (storeCheck.length > 0) {
       let { itemList, totalCost } = storeCheck[0].store[0];
@@ -63,22 +84,26 @@ function App() {
   };
 
   const deleteItemHandler = (store, itemId) => {
-    const storeCheck = groceryList.filter((storeName) => {
-      return storeName.store[0]["name"] === store;
-    });
+    // const storeCheck = groceryList.filter((storeName) => {
+    //   return storeName.store[0]["name"] === store;
+    // });
+    const storeCheck = filterByStoreName(groceryList, store);
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
 
     setInventory((prevItems) => {
-      const deletedItem = itemList.filter((item) => {
-        return item.id === +itemId;
-      });
+      // const deletedItem = itemList.filter((item) => {
+      //   return item.id === +itemId;
+      // });
+      const deletedItem = filterById(itemList, +itemId);
       const { id, name, price, quantity, unit, cost } = deletedItem[0];
 
       //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
-      const itemCheck = inventory.filter((item) => {
-        return item.name === name;
-      });
+      // const itemCheck = inventory.filter((item) => {
+      //   return item.name === name;
+      // });
+
+      const itemCheck = filterByItemName(inventory, name);
 
       if (itemCheck.length > 0) {
         itemCheck[0]["quantity"] = +itemCheck[0]["quantity"] + +quantity;
@@ -104,9 +129,12 @@ function App() {
         const updatedItemList = itemList.filter((item) => {
           return item.id !== +itemId;
         });
-        const deletedItem = itemList.filter((item) => {
-          return item.id === +itemId;
-        });
+        //const updatedItemList = filterByItemName(itemList, +itemId);
+        // const deletedItem = itemList.filter((item) => {
+        //   return item.id === +itemId;
+        // });
+        const deletedItem = filterById(itemList, +itemId);
+        console.log(deletedItem);
 
         storeCheck[0].store[0]["totalCost"] =
           +totalCost - +deletedItem[0]["cost"];
@@ -124,9 +152,10 @@ function App() {
   };
 
   const inventoryTransactionHandler = (data, amount, action) => {
-    const targetItem = inventory.filter((item) => {
-      return item.id === +data.id;
-    });
+    // const targetItem = inventory.filter((item) => {
+    //   return item.id === +data.id;
+    // });
+    const targetItem = filterById(inventory, +data.id);
     let { quantity } = targetItem[0];
 
     setInventory((prevItems) => {
@@ -137,11 +166,13 @@ function App() {
         const updatedInventory = inventory.filter((item) => {
           return item.id !== +data.id;
         });
+        //const updatedInventory = filterById(inventory, +data.id);
         return updatedInventory;
       } else if (action === "restock") {
         const updatedInventory = inventory.filter((item) => {
           return item.id !== +data.id;
         });
+        //const updatedInventory = filterById(inventory, +data.id);
         return updatedInventory;
       } else {
         return [...prevItems];
