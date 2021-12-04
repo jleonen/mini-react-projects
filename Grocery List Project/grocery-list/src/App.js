@@ -6,23 +6,36 @@ import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 import { useEffect } from "react/cjs/react.development";
 
-const filterById = (list, targetId) => {
+let match;
+const filterById = (list, targetId, match) => {
   const target = list.filter((item) => {
-    return item.id === targetId;
+    if (match) {
+      return item.id === targetId;
+    } else {
+      return item.id !== targetId;
+    }
   });
   return target;
 };
 
-const filterByItemName = (list, targetItem) => {
+const filterByItemName = (list, targetItem, match) => {
   const target = list.filter((item) => {
-    return item.name === targetItem;
+    if (match) {
+      return item.name === targetItem;
+    } else {
+      return item.name !== targetItem;
+    }
   });
   return target;
 };
 
-const filterByStoreName = (list, targetStore) => {
+const filterByStoreName = (list, targetStore, match) => {
   const target = list.filter((storeName) => {
-    return storeName.store[0]["name"] === targetStore;
+    if (match) {
+      return storeName.store[0]["name"] === targetStore;
+    } else {
+      return storeName.store[0]["name"] !== targetStore;
+    }
   });
   return target;
 };
@@ -32,9 +45,7 @@ function App() {
   const [inventory, setInventory] = useState([]);
 
   const addItemsHandler = (item, store, cost, quantity, unit) => {
-    const storeCheck = filterByStoreName(groceryList, store);
-
-    //console.log(storeCheck[0].store[0].name);
+    const storeCheck = filterByStoreName(groceryList, store, (match = true));
 
     if (storeCheck.length > 0) {
       let { itemList, totalCost } = storeCheck[0].store[0];
@@ -87,7 +98,7 @@ function App() {
     // const storeCheck = groceryList.filter((storeName) => {
     //   return storeName.store[0]["name"] === store;
     // });
-    const storeCheck = filterByStoreName(groceryList, store);
+    const storeCheck = filterByStoreName(groceryList, store, (match = true));
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
 
@@ -95,7 +106,7 @@ function App() {
       // const deletedItem = itemList.filter((item) => {
       //   return item.id === +itemId;
       // });
-      const deletedItem = filterById(itemList, +itemId);
+      const deletedItem = filterById(itemList, +itemId, (match = true));
       const { id, name, price, quantity, unit, cost } = deletedItem[0];
 
       //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
@@ -103,7 +114,7 @@ function App() {
       //   return item.name === name;
       // });
 
-      const itemCheck = filterByItemName(inventory, name);
+      const itemCheck = filterByItemName(inventory, name, (match = true));
 
       if (itemCheck.length > 0) {
         itemCheck[0]["quantity"] = +itemCheck[0]["quantity"] + +quantity;
@@ -126,14 +137,15 @@ function App() {
     //DELETE ITEM AND UPDATE LIST
     if (itemList.length > 1) {
       setGroceryList((prevItems) => {
-        const updatedItemList = itemList.filter((item) => {
-          return item.id !== +itemId;
-        });
-        //const updatedItemList = filterByItemName(itemList, +itemId);
+        // const updatedItemList = itemList.filter((item) => {
+        //   return item.id !== +itemId;
+        // });
+
+        const updatedItemList = filterById(itemList, +itemId, (match = false));
         // const deletedItem = itemList.filter((item) => {
         //   return item.id === +itemId;
         // });
-        const deletedItem = filterById(itemList, +itemId);
+        const deletedItem = filterById(itemList, +itemId, (match = true));
         console.log(deletedItem);
 
         storeCheck[0].store[0]["totalCost"] =
@@ -143,9 +155,15 @@ function App() {
       });
     } else if (itemList.length === 1) {
       setGroceryList((prevItems) => {
-        const updatedList = groceryList.filter((storeName) => {
-          return storeName.store[0]["name"] !== name;
-        });
+        // const updatedList = groceryList.filter((storeName) => {
+        //   return storeName.store[0]["name"] !== name;
+        // });
+        const updatedList = filterByStoreName(
+          groceryList,
+          name,
+          (match = false)
+        );
+
         return [...updatedList];
       });
     }
@@ -155,24 +173,22 @@ function App() {
     // const targetItem = inventory.filter((item) => {
     //   return item.id === +data.id;
     // });
-    const targetItem = filterById(inventory, +data.id);
+    const targetItem = filterById(inventory, +data.id, (match = true));
     let { quantity } = targetItem[0];
 
     setInventory((prevItems) => {
       if (action === "transact") {
         targetItem[0].quantity = +quantity - +amount;
         return [...prevItems];
-      } else if (action === "delete") {
-        const updatedInventory = inventory.filter((item) => {
-          return item.id !== +data.id;
-        });
-        //const updatedInventory = filterById(inventory, +data.id);
-        return updatedInventory;
-      } else if (action === "restock") {
-        const updatedInventory = inventory.filter((item) => {
-          return item.id !== +data.id;
-        });
-        //const updatedInventory = filterById(inventory, +data.id);
+      } else if (action === "delete" || action === "restock") {
+        // const updatedInventory = inventory.filter((item) => {
+        //   return item.id !== +data.id;
+        // });
+        const updatedInventory = filterById(
+          inventory,
+          +data.id,
+          (match = false)
+        );
         return updatedInventory;
       } else {
         return [...prevItems];
