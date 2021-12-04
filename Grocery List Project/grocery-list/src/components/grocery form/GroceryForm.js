@@ -65,14 +65,11 @@ const GroceryForm = (props) => {
   useEffect(() => {
     if (validItem && validStore && validQuantity && validCost && validUnit) {
       setFormIsValid(true);
-    } else {
-      setFormIsValid(false);
     }
   }, [validItem, validStore, validQuantity, validCost, validUnit]);
 
   const submitHandler = (event) => {
     event.preventDefault();
-
     if (formIsValid) {
       props.onAddItems(item, store, cost, quantity, unit);
       resetValues();

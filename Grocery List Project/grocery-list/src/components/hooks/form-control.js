@@ -24,11 +24,6 @@ const useFormControl = (inputType) => {
     isValid: null,
   });
 
-  // const [quantityState,dispatchQuantity] = useReducer(quantityStateReducer, {
-  //     value:"",
-  //     isValid: null,
-  // })
-
   const contentHandler = (event) => {
     dispatchInput({ type: inputType, value: event.target.value });
   };
