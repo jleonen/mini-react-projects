@@ -47,6 +47,7 @@ function App() {
   const addItemsHandler = (item, store, cost, quantity, unit) => {
     const storeCheck = filterByStoreName(groceryList, store, (match = true));
 
+    //IF STORE ALREADY EXISTS IN STORE LIST
     if (storeCheck.length > 0) {
       let { itemList, totalCost } = storeCheck[0].store[0];
       setGroceryList((prevItems) => {
@@ -115,16 +116,6 @@ function App() {
         return item.name === name && item.store === store;
       });
 
-      console.log(store);
-
-      // const duplicateStore = inventory.filter((item) => {
-      //   return item.store === store;
-      // });
-      // console.log(itemCheck);
-      // console.log(duplicateStore);
-
-      //const itemCheck = filterByItemName(inventory, name, (match = true));
-
       if (itemCheck.length > 0) {
         const targetIndex = inventory.findIndex((item) => item.id === id);
         const { quantity: existingQuantity } = itemCheck[0];
@@ -176,11 +167,11 @@ function App() {
         //   return item.id === +itemId;
         // });
         const deletedItem = filterById(itemList, +itemId, (match = true));
-        console.log(deletedItem);
+        const { cost } = deletedItem[0];
 
-        storeCheck[0].store[0]["totalCost"] =
-          +totalCost - +deletedItem[0]["cost"];
+        storeCheck[0].store[0]["totalCost"] = +totalCost - +cost;
         storeCheck[0].store[0]["itemList"] = [...updatedItemList];
+
         return [...prevItems];
       });
     } else if (itemList.length === 1) {
