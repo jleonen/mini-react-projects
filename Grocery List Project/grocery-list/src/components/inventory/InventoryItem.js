@@ -110,6 +110,7 @@ const InventoryItem = (props) => {
           <span>Quantity</span>
         )}
         <span> Status </span>
+        {action === "restock" && <span>Vendor </span>}
         <div>
           <span>Actions</span>
           {choices}
@@ -132,6 +133,7 @@ const InventoryItem = (props) => {
             ) : (
               <span className={classes.inStock}>In stock </span>
             )}
+            {action === "restock" && <span>{item.store}</span>}
             <form onSubmit={transactionHandler}>
               {inputs}
 

@@ -102,23 +102,43 @@ function App() {
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
 
+    console.log(inventory);
     setInventory((prevItems) => {
       // const deletedItem = itemList.filter((item) => {
       //   return item.id === +itemId;
       // });
       const deletedItem = filterById(itemList, +itemId, (match = true));
       const { id, name, price, quantity, unit, cost } = deletedItem[0];
-
+      console.log(quantity);
       //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
-      // const itemCheck = inventory.filter((item) => {
-      //   return item.name === name;
-      // });
+      let itemCheck = inventory.filter((item) => {
+        return item.name === name;
+      });
 
-      const itemCheck = filterByItemName(inventory, name, (match = true));
+      const duplicateStore = inventory.filter((item) => {
+        return item.store === store;
+      });
+      console.log(itemCheck);
+      console.log(duplicateStore);
+
+      //const itemCheck = filterByItemName(inventory, name, (match = true));
 
       if (itemCheck.length > 0) {
-        itemCheck[0]["quantity"] = +itemCheck[0]["quantity"] + +quantity;
-        return [...prevItems];
+        console.log(itemCheck[0].quantity);
+        const targetIndex = inventory.findIndex((item) => item.id === id);
+        const targetCheck = itemCheck[0];
+
+        const updatedItem = {
+          ...targetCheck,
+          quantity: +itemCheck[0]["quantity"] + Number(quantity),
+        };
+        console.log(updatedItem);
+        let updatedArray = [...prevItems];
+        updatedArray.splice(targetIndex, 1, updatedItem);
+
+        //itemCheck[0].quantity=+itemCheck[0]["quantity"] + Number(quantity);
+
+        return [...updatedArray];
       } else {
         return [
           ...prevItems,
@@ -127,7 +147,7 @@ function App() {
             store: storeCheck[0].store[0]["name"],
             name: name,
             price: +price,
-            quantity: quantity,
+            quantity: +quantity,
             unit: unit,
             cost: +cost * +quantity,
           },
