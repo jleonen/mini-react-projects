@@ -102,37 +102,38 @@ function App() {
     let { name, itemList, totalCost } = storeCheck[0].store[0];
     //UPLOAD DATA TO INVENTORY LIST
 
-    console.log(inventory);
     setInventory((prevItems) => {
       // const deletedItem = itemList.filter((item) => {
       //   return item.id === +itemId;
       // });
       const deletedItem = filterById(itemList, +itemId, (match = true));
       const { id, name, price, quantity, unit, cost } = deletedItem[0];
-      console.log(quantity);
+
+      console.log(deletedItem);
       //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
       let itemCheck = inventory.filter((item) => {
-        return item.name === name;
+        return item.name === name && item.store === store;
       });
 
-      const duplicateStore = inventory.filter((item) => {
-        return item.store === store;
-      });
-      console.log(itemCheck);
-      console.log(duplicateStore);
+      console.log(store);
+
+      // const duplicateStore = inventory.filter((item) => {
+      //   return item.store === store;
+      // });
+      // console.log(itemCheck);
+      // console.log(duplicateStore);
 
       //const itemCheck = filterByItemName(inventory, name, (match = true));
 
       if (itemCheck.length > 0) {
-        console.log(itemCheck[0].quantity);
         const targetIndex = inventory.findIndex((item) => item.id === id);
-        const targetCheck = itemCheck[0];
-
+        const { quantity: existingQuantity } = itemCheck[0];
         const updatedItem = {
-          ...targetCheck,
-          quantity: +itemCheck[0]["quantity"] + Number(quantity),
+          ...itemCheck[0],
+          store: store,
+          quantity: +existingQuantity + Number(quantity),
         };
-        console.log(updatedItem);
+
         let updatedArray = [...prevItems];
         updatedArray.splice(targetIndex, 1, updatedItem);
 
@@ -140,18 +141,27 @@ function App() {
 
         return [...updatedArray];
       } else {
-        return [
-          ...prevItems,
+        const updatedItem = [
           {
-            id: id,
-            store: storeCheck[0].store[0]["name"],
-            name: name,
-            price: +price,
-            quantity: +quantity,
-            unit: unit,
-            cost: +cost * +quantity,
+            ...deletedItem[0],
+            store: store,
           },
         ];
+
+        const updatedArray = prevItems.concat(updatedItem);
+        return [...updatedArray];
+        // return [
+        //   ...prevItems,
+        //   {
+        //     id: id,
+        //     store: storeCheck[0].store[0]["name"],
+        //     name: name,
+        //     price: +price,
+        //     quantity: +quantity,
+        //     unit: unit,
+        //     cost: +cost * +quantity,
+        //   },
+        // ];
       }
     });
     //DELETE ITEM AND UPDATE LIST
