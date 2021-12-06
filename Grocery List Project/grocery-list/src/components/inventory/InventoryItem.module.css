@@ -48,3 +48,7 @@
 .itemName {
   max-width: 70px;
 }
+
+.tabsContainer span {
+  cursor: pointer;
+}

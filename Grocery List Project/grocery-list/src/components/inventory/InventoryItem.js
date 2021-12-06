@@ -36,32 +36,59 @@ const InventoryItem = (props) => {
     }
   };
 
-  const filterItemByName = () => {
+  const filterHelper = (updatingFunction, listData, prop) => {
     reverse ? setReverse(false) : setReverse(true);
-    setFilteredArray(() => {
-      const sortedItems = props.inventory.sort((itemA, itemB) => {
-        if (reverse === false) {
-          return itemA.name > itemB.name ? 1 : -1;
-        } else {
-          return itemA.name < itemB.name ? 1 : -1;
-        }
-      });
-      return sortedItems;
+    updatingFunction(() => {
+      if (prop === "name") {
+        const sortedItems = listData.sort((itemA, itemB) => {
+          if (reverse === false) {
+            return itemA.name > itemB.name ? 1 : -1;
+          } else {
+            return itemA.name < itemB.name ? 1 : -1;
+          }
+        });
+        return sortedItems;
+      } else if (prop === "quantity") {
+        const sortedItems = listData.sort((itemA, itemB) => {
+          if (reverse === false) {
+            return itemA.name > itemB.name ? 1 : -1;
+          } else {
+            return itemA.name < itemB.name ? 1 : -1;
+          }
+        });
+        return sortedItems;
+      }
     });
   };
 
+  const filterItemByName = () => {
+    // reverse ? setReverse(false) : setReverse(true);
+    // setFilteredArray(() => {
+    //   const sortedItems = props.inventory.sort((itemA, itemB) => {
+    //     if (reverse === false) {
+    //       return itemA.name > itemB.name ? 1 : -1;
+    //     } else {
+    //       return itemA.name < itemB.name ? 1 : -1;
+    //     }
+    //   });
+    //   return sortedItems;
+    // });
+    filterHelper(setFilteredArray, props.inventory, "name");
+  };
+
   const filterItemByQuantity = () => {
-    reverse ? setReverse(false) : setReverse(true);
-    setFilteredArray(() => {
-      const sortedItems = props.inventory.sort((itemA, itemB) => {
-        if (reverse === false) {
-          return itemA.quantity > itemB.quantity ? 1 : -1;
-        } else {
-          return itemA.quantity < itemB.quantity ? 1 : -1;
-        }
-      });
-      return sortedItems;
-    });
+    // reverse ? setReverse(false) : setReverse(true);
+    // setFilteredArray(() => {
+    //   const sortedItems = props.inventory.sort((itemA, itemB) => {
+    //     if (reverse === false) {
+    //       return itemA.quantity > itemB.quantity ? 1 : -1;
+    //     } else {
+    //       return itemA.quantity < itemB.quantity ? 1 : -1;
+    //     }
+    //   });
+    //   return sortedItems;
+    // });
+    filterHelper(setFilteredArray, props.inventory, "quantity");
   };
 
   const actionChangeHandler = (event) => {
@@ -78,7 +105,7 @@ const InventoryItem = (props) => {
   const resetValues = () => {
     setAction("");
     setAmount("");
-    setActive(false);
+    setActive(false); //reset dropdown menu to default
   };
   const transactionHandler = (event) => {
     event.preventDefault();
@@ -105,12 +132,7 @@ const InventoryItem = (props) => {
         transactionValue = +data.quantity;
       }
 
-      props.onTransact(
-        data,
-
-        transactionValue,
-        action
-      );
+      props.onTransact(data, transactionValue, action);
 
       resetValues();
     } else if (action === "delete") {
@@ -134,6 +156,7 @@ const InventoryItem = (props) => {
   } else {
     inputs = "";
   }
+
   let choices;
   if (active) {
     choices = (
@@ -158,7 +181,7 @@ const InventoryItem = (props) => {
 
   return (
     <div>
-      <Tabs>
+      <Tabs className={classes.tabsContainer}>
         <span onClick={filterItemByName}>Name</span>
         {action === "restock" ? (
           <span>Price per unit</span>
@@ -173,7 +196,6 @@ const InventoryItem = (props) => {
         </div>
       </Tabs>
       <ul>
-        {/* {props.inventory.map((item) => ( */}
         {filteredArray.map((item) => (
           <div className={classes.inventoryItem} key={item.id}>
             <span className={classes.itemName}>{item.name}</span>
