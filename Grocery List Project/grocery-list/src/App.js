@@ -168,6 +168,48 @@ function App() {
         // });
         const deletedItem = filterById(itemList, +itemId, (match = true));
         const { cost } = deletedItem[0];
+        // const updatedItem = {
+        //   ...storeCheck[0].store[0],
+        //   totalCost: +totalCost - +cost,
+        // };
+        // console.log(updatedItem);
+        // const updatedItem2 = {
+        //   ...storeCheck[0],
+        //   store: updatedItem,
+        // };
+        // console.log(updatedItem2);
+        ////////////////////
+        // const targetIndex = groceryList.findIndex((store) => {
+        //   console.log(store.store[0].name);
+        //   console.log(store);
+        //   return store.store[0].name === store.store[0].name;
+        // });
+        /////////////
+        // console.log(targetIndex);
+        // console.log(targetIndex);
+        // const updatedItem3 = {
+        //   ...storeCheck[0],
+        //   store: [
+        //     {
+        //       ...store[0],
+        //       itemList: [...updatedItemList],
+        //       totalCost: +totalCost - +cost,
+        //     },
+        //   ],
+        // };
+        // // console.log(storeCheck);
+        // console.log(updatedItem3);
+        // let updatedArray = groceryList.filter((store) => {
+        //   console.log(store);
+        //   return store.store[0].name !== store.store[0].name;
+        // });
+
+        // console.log(updatedArray);
+        // updatedArray.push(updatedItem3);
+        // console.log(updatedArray);
+        // //let updatedArray = [...prevItems, ...updatedItem3];
+        // //console.log(updatedArray);
+        // return [...updatedArray];
 
         storeCheck[0].store[0]["totalCost"] = +totalCost - +cost;
         storeCheck[0].store[0]["itemList"] = [...updatedItemList];
@@ -195,6 +237,7 @@ function App() {
     //   return item.id === +data.id;
     // });
     const targetItem = filterById(inventory, +data.id, (match = true));
+    console.log(targetItem);
     let { quantity } = targetItem[0];
 
     setInventory((prevItems) => {

@@ -25,7 +25,7 @@ const TransactionBtn = (props) => {
   return (
     <button
       type="submit"
-      value={values}
+      value={props.value}
       onClick={props.onClick}
       className={classes.transactionBtn}
     >

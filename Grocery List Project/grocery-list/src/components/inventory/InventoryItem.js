@@ -2,12 +2,41 @@ import classes from "./InventoryItem.module.css";
 import { useState } from "react";
 import Tabs from "../UI/Tabs";
 import TransactionBtn from "../UI/TransactionBtn";
+import { useEffect } from "react/cjs/react.development";
 
 const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
-
+  const [reverse, setReverse] = useState(false);
+  const [filteredArray, setFilteredArray] = useState([]);
+  const [filter, setFilter] = useState(false);
   const [action, setAction] = useState("");
   const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (!filter) {
+      setFilteredArray(props.inventory);
+    }
+  }, [props.inventory]);
+
+  const filterItemByStatus = () => {
+    //setFilter(true);
+    let filteredArray;
+    const lowStockItems = props.inventory.filter((item) => {
+      return item.quantity === 0;
+    });
+
+    const inStockItems = props.inventory.filter((item) => {
+      return item.quantity !== 0;
+    });
+
+    if (reverse === false) {
+      filteredArray = lowStockItems.concat(inStockItems);
+      setFilteredArray(filteredArray);
+    } else {
+      filteredArray = inStockItems.concat(lowStockItems);
+    }
+  };
+
   const actionChangeHandler = (event) => {
     setAction(event.target.value);
   };
@@ -117,7 +146,8 @@ const InventoryItem = (props) => {
         </div>
       </Tabs>
       <ul>
-        {props.inventory.map((item) => (
+        {/* {props.inventory.map((item) => ( */}
+        {filteredArray.map((item) => (
           <div className={classes.inventoryItem} key={item.id}>
             <span className={classes.itemName}>{item.name}</span>
             {action === "restock" ? (
@@ -141,8 +171,17 @@ const InventoryItem = (props) => {
                 onClick={transactionHandler}
                 inventory={props.inventory}
                 action={action}
+                value={[
+                  item.id,
+                  item.store,
+                  item.name,
+                  item.quantity,
+                  item.unit,
+                  item.price,
+                ]}
               />
             </form>
+            <button onClick={filterItemByStatus}>Filter test</button>
           </div>
         ))}
       </ul>
