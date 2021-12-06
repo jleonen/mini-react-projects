@@ -19,7 +19,8 @@ const InventoryItem = (props) => {
   }, [props.inventory]);
 
   const filterItemByStatus = () => {
-    //setFilter(true);
+    reverse ? setReverse(false) : setReverse(true);
+
     let filteredArray;
     const lowStockItems = props.inventory.filter((item) => {
       return item.quantity === 0;
@@ -34,8 +35,37 @@ const InventoryItem = (props) => {
       setFilteredArray(filteredArray);
     } else {
       filteredArray = inStockItems.concat(lowStockItems);
+      setFilteredArray(filteredArray);
     }
   };
+
+  const filterItemByName = () => {
+    reverse ? setReverse(false) : setReverse(true);
+    setFilteredArray(() => {
+      const sortedItems = props.inventory.sort((itemA, itemB) => {
+        if (reverse === false) {
+          return itemA.name > itemB.name ? 1 : -1;
+        } else {
+          return itemA.name < itemB.name ? 1 : -1;
+        }
+      });
+      return sortedItems;
+    });
+  };
+
+  // const filterItemByName = () => {
+  //   reverse ? setReverse(false) : setReverse(true);
+  //   setFilteredArray(() => {
+  //     const sortedItems = props.inventory.sort((itemA, itemB) => {
+  //       if (reverse === false) {
+  //         return itemA.name > itemB.name ? 1 : -1;
+  //       } else {
+  //         return itemA.name < itemB.name ? 1 : -1;
+  //       }
+  //     });
+  //     return sortedItems;
+  //   });
+  // };
 
   const actionChangeHandler = (event) => {
     setAction(event.target.value);
@@ -132,13 +162,13 @@ const InventoryItem = (props) => {
   return (
     <div>
       <Tabs>
-        <span>Name</span>
+        <span onClick={filterItemByName}>Name</span>
         {action === "restock" ? (
           <span>Price per unit</span>
         ) : (
           <span>Quantity</span>
         )}
-        <span> Status </span>
+        <span onClick={filterItemByStatus}> Status </span>
         <span>Vendor </span>
         <div>
           <span>Actions</span>
