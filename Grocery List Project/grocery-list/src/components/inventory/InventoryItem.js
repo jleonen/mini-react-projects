@@ -8,14 +8,11 @@ const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
   const [reverse, setReverse] = useState(false);
   const [filteredArray, setFilteredArray] = useState([]);
-  const [filter, setFilter] = useState(false);
   const [action, setAction] = useState("");
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (!filter) {
-      setFilteredArray(props.inventory);
-    }
+    setFilteredArray(props.inventory);
   }, [props.inventory]);
 
   const filterItemByStatus = () => {
@@ -53,19 +50,19 @@ const InventoryItem = (props) => {
     });
   };
 
-  // const filterItemByName = () => {
-  //   reverse ? setReverse(false) : setReverse(true);
-  //   setFilteredArray(() => {
-  //     const sortedItems = props.inventory.sort((itemA, itemB) => {
-  //       if (reverse === false) {
-  //         return itemA.name > itemB.name ? 1 : -1;
-  //       } else {
-  //         return itemA.name < itemB.name ? 1 : -1;
-  //       }
-  //     });
-  //     return sortedItems;
-  //   });
-  // };
+  const filterItemByQuantity = () => {
+    reverse ? setReverse(false) : setReverse(true);
+    setFilteredArray(() => {
+      const sortedItems = props.inventory.sort((itemA, itemB) => {
+        if (reverse === false) {
+          return itemA.quantity > itemB.quantity ? 1 : -1;
+        } else {
+          return itemA.quantity < itemB.quantity ? 1 : -1;
+        }
+      });
+      return sortedItems;
+    });
+  };
 
   const actionChangeHandler = (event) => {
     setAction(event.target.value);
@@ -166,7 +163,7 @@ const InventoryItem = (props) => {
         {action === "restock" ? (
           <span>Price per unit</span>
         ) : (
-          <span>Quantity</span>
+          <span onClick={filterItemByQuantity}>Quantity</span>
         )}
         <span onClick={filterItemByStatus}> Status </span>
         <span>Vendor </span>
@@ -211,7 +208,6 @@ const InventoryItem = (props) => {
                 ]}
               />
             </form>
-            <button onClick={filterItemByStatus}>Filter test</button>
           </div>
         ))}
       </ul>
