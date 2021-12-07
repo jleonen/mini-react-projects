@@ -3,9 +3,11 @@ import classes from "./GroceryForm.module.css";
 import Grocery from "../../imgs/grocery-img.jpg";
 import useFormControl from "../hooks/form-control";
 import ErrorMessage from "../UI/ErrorMessage";
-import { useEffect } from "react/cjs/react.development";
+import { useContext, useEffect } from "react/cjs/react.development";
+import { InventoryContext } from "../store/inventory-context";
 
 const GroceryForm = (props) => {
+  const inventoryCtx = useContext(InventoryContext);
   //ITEM
   const {
     value: item,
@@ -71,7 +73,7 @@ const GroceryForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      props.onAddItems(item, store, cost, quantity, unit);
+      inventoryCtx.addItems(item, store, cost, quantity, unit);
       resetValues();
     }
   };

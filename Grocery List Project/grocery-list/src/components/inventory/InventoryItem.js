@@ -2,7 +2,8 @@ import classes from "./InventoryItem.module.css";
 import { useState } from "react";
 import Tabs from "../UI/Tabs";
 import TransactionBtn from "../UI/TransactionBtn";
-import { useEffect } from "react/cjs/react.development";
+import { useContext, useEffect } from "react/cjs/react.development";
+import { InventoryContext } from "../store/inventory-context";
 
 const InventoryItem = (props) => {
   const [amount, setAmount] = useState("");
@@ -10,20 +11,21 @@ const InventoryItem = (props) => {
   const [filteredArray, setFilteredArray] = useState([]);
   const [action, setAction] = useState("");
   const [active, setActive] = useState(false);
+  const inventoryCtx = useContext(InventoryContext);
 
   useEffect(() => {
-    setFilteredArray(props.inventory);
-  }, [props.inventory]);
+    setFilteredArray(inventoryCtx.inventory);
+  }, [inventoryCtx.inventory]);
 
   const filterItemByStatus = () => {
     reverse ? setReverse(false) : setReverse(true);
 
     let filteredArray;
-    const lowStockItems = props.inventory.filter((item) => {
+    const lowStockItems = inventoryCtx.inventory.filter((item) => {
       return item.quantity === 0;
     });
 
-    const inStockItems = props.inventory.filter((item) => {
+    const inStockItems = inventoryCtx.inventory.filter((item) => {
       return item.quantity !== 0;
     });
 
@@ -64,7 +66,7 @@ const InventoryItem = (props) => {
   const filterItemByName = () => {
     // reverse ? setReverse(false) : setReverse(true);
     // setFilteredArray(() => {
-    //   const sortedItems = props.inventory.sort((itemA, itemB) => {
+    //   const sortedItems = inventoryCtx.inventory.sort((itemA, itemB) => {
     //     if (reverse === false) {
     //       return itemA.name > itemB.name ? 1 : -1;
     //     } else {
@@ -73,13 +75,13 @@ const InventoryItem = (props) => {
     //   });
     //   return sortedItems;
     // });
-    filterHelper(setFilteredArray, props.inventory, "name");
+    filterHelper(setFilteredArray, inventoryCtx.inventory, "name");
   };
 
   const filterItemByQuantity = () => {
     // reverse ? setReverse(false) : setReverse(true);
     // setFilteredArray(() => {
-    //   const sortedItems = props.inventory.sort((itemA, itemB) => {
+    //   const sortedItems = inventoryCtx.inventory.sort((itemA, itemB) => {
     //     if (reverse === false) {
     //       return itemA.quantity > itemB.quantity ? 1 : -1;
     //     } else {
@@ -88,7 +90,7 @@ const InventoryItem = (props) => {
     //   });
     //   return sortedItems;
     // });
-    filterHelper(setFilteredArray, props.inventory, "quantity");
+    filterHelper(setFilteredArray, inventoryCtx.inventory, "quantity");
   };
 
   const actionChangeHandler = (event) => {
@@ -132,19 +134,19 @@ const InventoryItem = (props) => {
         transactionValue = +data.quantity;
       }
 
-      props.onTransact(data, transactionValue, action);
+      inventoryCtx.transaction(data, transactionValue, action);
 
       resetValues();
     } else if (action === "delete") {
       //let maxAmount = +data.quantity;
-      props.onTransact(data, "_", action);
+      inventoryCtx.transaction(data, "_", action);
 
       resetValues();
     } else if (action === "restock") {
       let { item, store, price, unit, quantity } = data;
       console.log(data);
-      props.onRestock(item, store, price, amount, unit);
-      +quantity === 0 && props.onTransact(data, "_", action);
+      inventoryCtx.addItems(item, store, price, amount, unit);
+      +quantity === 0 && inventoryCtx.transaction(data, "_", action);
       resetValues();
     }
   };
@@ -218,7 +220,7 @@ const InventoryItem = (props) => {
 
               <TransactionBtn
                 onClick={transactionHandler}
-                inventory={props.inventory}
+                inventory={inventoryCtx.inventory}
                 action={action}
                 value={[
                   item.id,

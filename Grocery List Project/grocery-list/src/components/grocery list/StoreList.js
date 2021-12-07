@@ -19,7 +19,7 @@ const StoreList = (props) => {
   const showListHandler = (id) => {
     setDetails(true);
     setCurrentItems(() => {
-      const specificStore = props.list.filter((store) => {
+      const specificStore = inventoryCtx.groceryList.filter((store) => {
         return store.id === id;
       });
       return specificStore;
@@ -29,7 +29,7 @@ const StoreList = (props) => {
   return (
     <div className={classes.listContainer}>
       <div className={classes.storesContainer}>
-        {props.list.map((store) => {
+        {inventoryCtx.groceryList.map((store) => {
           const { name, itemList, totalCost } = store.store[0];
           return (
             <div key={Math.random()}>

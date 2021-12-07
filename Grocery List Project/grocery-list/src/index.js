@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import InventoryContextProvider from "./components/store/inventory-context";
 
 import App from "./App";
 
 ReactDOM.render(
-  <InventoryContextProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </InventoryContextProvider>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

@@ -5,20 +5,16 @@ import InventoryList from "./components/inventory/InventoryItem";
 import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 import { useEffect } from "react/cjs/react.development";
-import { InventoryContext } from "./components/store/inventory-context";
+import InventoryContextProvider from "./components/store/inventory-context";
 
 function App() {
-  const inventoryCtx = useContext(InventoryContext);
-
   return (
     <div>
-      <GroceryForm onAddItems={inventoryCtx.addItems} />
-      <StoreList list={inventoryCtx.groceryList} />
-      <InventoryList
-        inventory={inventoryCtx.inventory}
-        onTransact={inventoryCtx.transaction}
-        onRestock={inventoryCtx.addItems}
-      />
+      <InventoryContextProvider>
+        <GroceryForm />
+        <StoreList />
+        <InventoryList />
+      </InventoryContextProvider>
     </div>
   );
 }
