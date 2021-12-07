@@ -1,4 +1,4 @@
-import classes from "./InventoryItem.module.css";
+import classes from "./InventoryItems.module.css";
 import { useState } from "react";
 import Tabs from "../UI/Tabs";
 import TransactionBtn from "../UI/TransactionBtn";
@@ -144,7 +144,6 @@ const InventoryItem = (props) => {
       resetValues();
     } else if (action === "restock") {
       let { item, store, price, unit, quantity } = data;
-      console.log(data);
       inventoryCtx.addItems(item, store, price, amount, unit);
       +quantity === 0 && inventoryCtx.transaction(data, "_", action);
       resetValues();

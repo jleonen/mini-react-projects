@@ -1,10 +1,10 @@
-import InventoryItem from "./InventoryItem";
+import InventoryItems from "./InventoryItems";
 import classes from "./InventoryList.module.css";
 
 const InventoryList = (props) => {
   return (
     <div>
-      <InventoryItem inventory={props.inventory} />
+      <InventoryItems />
     </div>
   );
 };
