@@ -13,10 +13,7 @@ function App() {
   return (
     <div>
       <GroceryForm onAddItems={inventoryCtx.addItems} />
-      <StoreList
-        list={inventoryCtx.groceryList}
-        deleteItem={inventoryCtx.deleteItem}
-      />
+      <StoreList list={inventoryCtx.groceryList} />
       <InventoryList
         inventory={inventoryCtx.inventory}
         onTransact={inventoryCtx.transaction}
