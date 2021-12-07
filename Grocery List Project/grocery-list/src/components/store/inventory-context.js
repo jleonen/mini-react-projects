@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 export const InventoryContext = React.createContext({
   groceryList: [],
   inventory: [],
@@ -6,7 +8,7 @@ export const InventoryContext = React.createContext({
   transaction: () => {},
 });
 
-export const InventoryContextProvider = () => {
+export const InventoryContextProvider = (props) => {
   let match;
   const filterById = (list, targetId, match) => {
     const target = list.filter((item) => {
