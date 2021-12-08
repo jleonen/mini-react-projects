@@ -4,6 +4,15 @@ const ItemManagementContext = React.createContext({
   filteredArray: [],
   action: "",
   active: null,
+  actionChange: "",
+  amountChange: "",
+  dropDownHandler: null,
+  reset: () => {},
+  transactionHandler: () => {},
+  filterItemByStatus: () => {},
+  filterItemByName: () => {},
+  filterItemByQuantity: () => {},
+  filterItemByStatus: () => {},
 });
 
 const ItemManagementContextProvider = (props) => {
@@ -156,6 +165,15 @@ const ItemManagementContextProvider = (props) => {
     filteredArray: filteredArray,
     action: action,
     active: false,
+    actionChange: actionChangeHandler,
+    amountChange: amountChangeHandler,
+    dropDownHandler: dropDownHandler,
+    reset: resetValues,
+    transactionHandler: transactionHandler,
+    filterItemByStatus: filterItemByStatus,
+    filterItemByName: filterItemByName,
+    filterItemByQuantity: filterItemByQuantity,
+    filterItemByStatus: filterItemByStatus,
   };
 
   return (

@@ -6,15 +6,18 @@ import StoreList from "./components/grocery list/StoreList";
 import ShoppingPage from "./pages/ShoppingPage";
 import { useEffect } from "react/cjs/react.development";
 import InventoryContextProvider from "./components/store/inventory-context";
+import ItemManagementContextProvider from "./components/store/itemManagement-context";
 
 function App() {
   return (
     <div>
-      <InventoryContextProvider>
-        <GroceryForm />
-        <StoreList />
-        <InventoryList />
-      </InventoryContextProvider>
+      <ItemManagementContextProvider>
+        <InventoryContextProvider>
+          <GroceryForm />
+          <StoreList />
+          <InventoryList />
+        </InventoryContextProvider>
+      </ItemManagementContextProvider>
     </div>
   );
 }
