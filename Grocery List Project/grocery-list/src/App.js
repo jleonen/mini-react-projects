@@ -11,13 +11,13 @@ import ItemManagementContextProvider from "./components/store/itemManagement-con
 function App() {
   return (
     <div>
-      <ItemManagementContextProvider>
-        <InventoryContextProvider>
+      <InventoryContextProvider>
+        <ItemManagementContextProvider>
           <GroceryForm />
           <StoreList />
           <InventoryList />
-        </InventoryContextProvider>
-      </ItemManagementContextProvider>
+        </ItemManagementContextProvider>
+      </InventoryContextProvider>
     </div>
   );
 }

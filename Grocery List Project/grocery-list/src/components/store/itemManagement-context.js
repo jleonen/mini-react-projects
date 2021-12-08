@@ -1,12 +1,14 @@
-const ItemManagementContext = React.createContext({
+import React, { useState, useEffect, useContext } from "react";
+import { InventoryContext } from "./inventory-context";
+export const ItemManagementContext = React.createContext({
   amount: "",
   reverse: "",
   filteredArray: [],
   action: "",
-  active: null,
+  active: false,
   actionChange: "",
   amountChange: "",
-  dropDownHandler: null,
+  dropDownHandler: () => {},
   reset: () => {},
   transactionHandler: () => {},
   filterItemByStatus: () => {},
@@ -15,7 +17,7 @@ const ItemManagementContext = React.createContext({
   filterItemByStatus: () => {},
 });
 
-const ItemManagementContextProvider = (props) => {
+export const ItemManagementContextProvider = (props) => {
   const [amount, setAmount] = useState("");
   const [reverse, setReverse] = useState(false);
   const [filteredArray, setFilteredArray] = useState([]);
@@ -111,6 +113,7 @@ const ItemManagementContextProvider = (props) => {
   };
 
   const dropDownHandler = () => {
+    console.log("active");
     setActive(true);
   };
 
@@ -164,7 +167,7 @@ const ItemManagementContextProvider = (props) => {
     reverse: reverse,
     filteredArray: filteredArray,
     action: action,
-    active: false,
+    active: active,
     actionChange: actionChangeHandler,
     amountChange: amountChangeHandler,
     dropDownHandler: dropDownHandler,
@@ -177,9 +180,9 @@ const ItemManagementContextProvider = (props) => {
   };
 
   return (
-    <ItemManagementContextProvider value={contextValue}>
+    <ItemManagementContext.Provider value={contextValue}>
       {props.children}
-    </ItemManagementContextProvider>
+    </ItemManagementContext.Provider>
   );
 };
 
