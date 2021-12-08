@@ -11,10 +11,9 @@ export const ItemManagementContext = React.createContext({
   dropDownHandler: () => {},
   reset: () => {},
   transactionHandler: () => {},
-  filterItemByStatus: () => {},
-  filterItemByName: () => {},
-  filterItemByQuantity: () => {},
-  filterItemByStatus: () => {},
+  filterByStatus: () => {},
+  filterByName: () => {},
+  filterByQuantity: () => {},
 });
 
 export const ItemManagementContextProvider = (props) => {
@@ -76,32 +75,10 @@ export const ItemManagementContextProvider = (props) => {
   };
 
   const filterItemByName = () => {
-    // reverse ? setReverse(false) : setReverse(true);
-    // setFilteredArray(() => {
-    //   const sortedItems = inventoryCtx.inventory.sort((itemA, itemB) => {
-    //     if (reverse === false) {
-    //       return itemA.name > itemB.name ? 1 : -1;
-    //     } else {
-    //       return itemA.name < itemB.name ? 1 : -1;
-    //     }
-    //   });
-    //   return sortedItems;
-    // });
     filterHelper(setFilteredArray, inventoryCtx.inventory, "name");
   };
 
   const filterItemByQuantity = () => {
-    // reverse ? setReverse(false) : setReverse(true);
-    // setFilteredArray(() => {
-    //   const sortedItems = inventoryCtx.inventory.sort((itemA, itemB) => {
-    //     if (reverse === false) {
-    //       return itemA.quantity > itemB.quantity ? 1 : -1;
-    //     } else {
-    //       return itemA.quantity < itemB.quantity ? 1 : -1;
-    //     }
-    //   });
-    //   return sortedItems;
-    // });
     filterHelper(setFilteredArray, inventoryCtx.inventory, "quantity");
   };
 
@@ -125,7 +102,6 @@ export const ItemManagementContextProvider = (props) => {
   const transactionHandler = (event) => {
     event.preventDefault();
 
-    console.log(action);
     console.log(event.currentTarget.value);
     //currentTarget REFERS TO the element that triggered event while target only RETURNS the element returning event
     //console.log(event.target.value);
@@ -151,7 +127,6 @@ export const ItemManagementContextProvider = (props) => {
 
       resetValues();
     } else if (action === "delete") {
-      //let maxAmount = +data.quantity;
       inventoryCtx.transaction(data, "_", action);
 
       resetValues();
@@ -173,10 +148,9 @@ export const ItemManagementContextProvider = (props) => {
     dropDownHandler: dropDownHandler,
     reset: resetValues,
     transactionHandler: transactionHandler,
-    filterItemByStatus: filterItemByStatus,
-    filterItemByName: filterItemByName,
-    filterItemByQuantity: filterItemByQuantity,
-    filterItemByStatus: filterItemByStatus,
+    filterByStatus: filterItemByStatus,
+    filterByName: filterItemByName,
+    filterByQuantity: filterItemByQuantity,
   };
 
   return (

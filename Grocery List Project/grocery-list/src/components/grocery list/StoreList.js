@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ShoppingDetail from "../grocery detail/ShoppingDetail";
 import StoreCard from "./StoreCard";
 import classes from "./StoreList.module.css";

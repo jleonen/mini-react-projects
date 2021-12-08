@@ -3,16 +3,16 @@ import { AiOutlineMinusSquare } from "react-icons/ai";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BsFillCartPlusFill } from "react-icons/bs";
 const TransactionBtn = (props) => {
-  const values = props.inventory.map((item) => {
-    return [
-      item.id,
-      item.store,
-      item.name,
-      item.quantity,
-      item.unit,
-      item.price,
-    ];
-  });
+  // const values = props.inventory.map((item) => {
+  //   return [
+  //     item.id,
+  //     item.store,
+  //     item.name,
+  //     item.quantity,
+  //     item.unit,
+  //     item.price,
+  //   ];
+  // });
   let buttonContent;
 
   if (props.action === "transact") {

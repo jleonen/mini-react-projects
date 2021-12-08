@@ -1,4 +1,3 @@
-import { useState } from "react";
 import classes from "./GroceryForm.module.css";
 import Grocery from "../../imgs/grocery-img.jpg";
 import useFormControl from "../hooks/form-control";
@@ -68,7 +67,14 @@ const GroceryForm = (props) => {
     if (validItem && validStore && validQuantity && validCost && validUnit) {
       setFormIsValid(true);
     }
-  }, [validItem, validStore, validQuantity, validCost, validUnit]);
+  }, [
+    validItem,
+    validStore,
+    validQuantity,
+    validCost,
+    validUnit,
+    setFormIsValid,
+  ]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -106,7 +112,7 @@ const GroceryForm = (props) => {
               placeholder="Store"
               required={true}
             ></input>
-            {validStore == false && !formIsValid && (
+            {validStore === false && !formIsValid && (
               <ErrorMessage message="Store cannot be empty" />
             )}
           </div>
@@ -120,7 +126,7 @@ const GroceryForm = (props) => {
               type="number"
               required={true}
             ></input>
-            {validCost == false && <ErrorMessage message="Enter valid cost" />}
+            {validCost === false && <ErrorMessage message="Enter valid cost" />}
           </div>
           <div>
             <input
@@ -132,7 +138,7 @@ const GroceryForm = (props) => {
               type="number"
               required={true}
             ></input>
-            {validQuantity == false && (
+            {validQuantity === false && (
               <ErrorMessage message="Enter valid quantity" />
             )}
           </div>
@@ -144,7 +150,7 @@ const GroceryForm = (props) => {
               placeholder="Unit of Measure"
               required={true}
             ></input>
-            {validUnit == false && !formIsValid && (
+            {validUnit === false && !formIsValid && (
               <ErrorMessage message="Unit cannot be empty" />
             )}
           </div>

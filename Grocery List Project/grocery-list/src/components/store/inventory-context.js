@@ -21,16 +21,16 @@ export const InventoryContextProvider = (props) => {
     return target;
   };
 
-  const filterByItemName = (list, targetItem, match) => {
-    const target = list.filter((item) => {
-      if (match) {
-        return item.name === targetItem;
-      } else {
-        return item.name !== targetItem;
-      }
-    });
-    return target;
-  };
+  // const filterByItemName = (list, targetItem, match) => {
+  //   const target = list.filter((item) => {
+  //     if (match) {
+  //       return item.name === targetItem;
+  //     } else {
+  //       return item.name !== targetItem;
+  //     }
+  //   });
+  //   return target;
+  // };
 
   const filterByStoreName = (list, targetStore, match) => {
     const target = list.filter((storeName) => {
@@ -110,7 +110,7 @@ export const InventoryContextProvider = (props) => {
       //   return item.id === +itemId;
       // });
       const deletedItem = filterById(itemList, +itemId, (match = true));
-      const { id, name, price, quantity, unit, cost } = deletedItem[0];
+      const { id, name, quantity } = deletedItem[0];
 
       console.log(deletedItem);
       //CHECK IF ITEM ALREADY EXISTS IN INVENTORY
