@@ -31,7 +31,7 @@ export const ItemManagementContextProvider = (props) => {
   const filterItemByStatus = () => {
     reverse ? setReverse(false) : setReverse(true);
 
-    let filteredArray;
+    let filteredStatusArray;
     const lowStockItems = inventoryCtx.inventory.filter((item) => {
       return item.quantity === 0;
     });
@@ -41,34 +41,45 @@ export const ItemManagementContextProvider = (props) => {
     });
 
     if (reverse === false) {
-      filteredArray = lowStockItems.concat(inStockItems);
-      setFilteredArray(filteredArray);
+      filteredStatusArray = lowStockItems.concat(inStockItems);
+      setFilteredArray(filteredStatusArray);
     } else {
-      filteredArray = inStockItems.concat(lowStockItems);
-      setFilteredArray(filteredArray);
+      filteredStatusArray = inStockItems.concat(lowStockItems);
+      setFilteredArray(filteredStatusArray);
     }
   };
 
-  const filterHelper = (updatingFunction, listData, prop) => {
+  const sortByName = (list) => {
+    const sortedNames = list.sort((itemA, itemB) => {
+      if (reverse === false) {
+        return itemA.name > itemB.name ? 1 : -1;
+      } else {
+        return itemA.name < itemB.name ? 1 : -1;
+      }
+    });
+    return sortedNames;
+  };
+
+  const sortByQuantity = (list) => {
+    const sortedQuantities = list.sort((itemA, itemB) => {
+      if (reverse === false) {
+        return itemA.quantity > itemB.quantity ? 1 : -1;
+      } else {
+        return itemA.quantity < itemB.quantity ? 1 : -1;
+      }
+    });
+    return sortedQuantities;
+  };
+
+  const filterHelper = (updatingFunction, listData, filterBy) => {
     reverse ? setReverse(false) : setReverse(true);
     updatingFunction(() => {
-      if (prop === "name") {
-        const sortedItems = listData.sort((itemA, itemB) => {
-          if (reverse === false) {
-            return itemA.name > itemB.name ? 1 : -1;
-          } else {
-            return itemA.name < itemB.name ? 1 : -1;
-          }
-        });
+      if (filterBy === "name") {
+        const sortedItems = sortByName(listData);
+
         return sortedItems;
-      } else if (prop === "quantity") {
-        const sortedItems = listData.sort((itemA, itemB) => {
-          if (reverse === false) {
-            return itemA.name > itemB.name ? 1 : -1;
-          } else {
-            return itemA.name < itemB.name ? 1 : -1;
-          }
-        });
+      } else if (filterBy === "quantity") {
+        const sortedItems = sortByQuantity(listData);
         return sortedItems;
       }
     });
