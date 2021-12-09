@@ -1,0 +1,24 @@
+.navBar {
+  background-color: #52b788;
+  padding: 5px 5px;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #d8f3dc;
+}
+
+.selected {
+  background-color: #d8f3dc;
+  padding: 4px 10px;
+  color: #52b788;
+  font-weight: bold;
+  text-decoration: none;
+}

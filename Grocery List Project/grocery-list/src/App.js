@@ -7,15 +7,18 @@ import StoreList from "./components/grocery list/StoreList";
 // import { useEffect } from "react/cjs/react.development";
 import InventoryContextProvider from "./components/store/inventory-context";
 import ItemManagementContextProvider from "./components/store/itemManagement-context";
+import Navbar from "./components/UI/Navbar";
 
 function App() {
   return (
     <div>
       <InventoryContextProvider>
         <ItemManagementContextProvider>
+          {/* <Navbar> */}
           <GroceryForm />
           <StoreList />
           <InventoryList />
+          {/* </Navbar> */}
         </ItemManagementContextProvider>
       </InventoryContextProvider>
     </div>
